@@ -3,884 +3,1013 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sathish K - Portfolio</title>
-    <!-- Load Font Awesome for all icons (fab, fas) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <!-- Load Typed.js for the dynamic text effect -->
-    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <title>Sathish K - Full Stack Developer Portfolio</title>
+    <!-- Google Font: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;400;700;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- EmailJS for contact form functionality -->
+    <script src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
     <style>
-        /* ------------------------------------ */
-        /* 1. GENERAL & SIDEBAR STYLES          */
-        /* ------------------------------------ */
         :root {
-            --neon-blue: #0ff;
-            --dark-bg: #0a0a0a;
-            --darkest-bg: #000;
+            --bg-color: #1a1a2e; /* Dark Purple/Blue */
+            --primary-color: #e94560; /* Neon Red/Pink */
+            --secondary-color: #00bcd4; /* Neon Cyan */
+            --text-color: #f7f7f7;
+            --card-bg: #22223b; /* Slightly lighter dark card */
+            --transition-speed: 0.3s;
+            --border-radius: 12px;
         }
+
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
             font-family: 'Inter', sans-serif;
         }
-        html { scroll-behavior: smooth; }
-        body {
-            background-color: var(--dark-bg);
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            transition: background-color 0.3s;
-        }
-        a { text-decoration: none; color: var(--neon-blue); }
-        section { padding: 100px 50px; text-align: center; min-height: 100vh; }
-        h2 { font-size: 3rem; margin-bottom: 50px; color: #fff; text-shadow: 0 0 10px var(--neon-blue); }
-        p { line-height: 1.6; color: #ccc; }
-        
-        /* Buttons */
-        .btn { display: inline-block; padding: 12px 25px; background: var(--neon-blue); color: var(--darkest-bg); border-radius: 50px; font-weight: bold; transition: all 0.3s ease; box-shadow: 0 0 15px var(--neon-blue); text-transform: uppercase; }
-        .btn:hover { background: #00cccc; box-shadow: 0 0 30px var(--neon-blue), 0 0 50px rgba(0, 255, 255, 0.5); transform: translateY(-2px); }
-        .btn-secondary { background: transparent; color: var(--neon-blue); border: 2px solid var(--neon-blue); margin-left: 20px; box-shadow: none; }
-        .btn-secondary:hover { background: rgba(0, 255, 255, 0.1); color: #fff; box-shadow: 0 0 25px var(--neon-blue); }
 
-        /* Sidebar Navigation */
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* --- Header (Top Nav) --- */
+        header {
+            background-color: var(--card-bg);
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--secondary-color);
+            text-shadow: 0 0 5px rgba(0, 188, 212, 0.6);
+        }
+
+        .desktop-nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            margin-left: 10px;
+            border-radius: var(--border-radius);
+            transition: var(--transition-speed);
+        }
+
+        .desktop-nav a:hover,
+        .desktop-nav a.active {
+            background-color: rgba(233, 69, 96, 0.1);
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .menu-icon {
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: none; /* Hidden on desktop */
+            color: var(--secondary-color);
+        }
+
+        /* --- Sidebar (Mobile Menu) --- */
         #sidebar {
             position: fixed;
             top: 0;
-            left: 0;
-            width: 280px;
+            right: 0;
+            width: 70%;
+            max-width: 300px;
             height: 100%;
-            background: var(--darkest-bg);
-            padding: 50px 20px;
-            text-align: center;
-            border-right: 2px solid rgba(0, 255, 255, 0.2);
-            box-shadow: 5px 0 30px rgba(0, 255, 255, 0.1);
-            transition: left 0.3s ease-in-out;
-            z-index: 100;
-        }
-        .profile-photo { width: 150px; height: 150px; border-radius: 50%; overflow: hidden; margin: 0 auto 15px; border: 5px solid var(--neon-blue); box-shadow: 0 0 20px var(--neon-blue); }
-        .profile-photo img { width: 100%; height: 100%; object-fit: cover; }
-        .profile-name { font-size: 1.8rem; color: #fff; margin-bottom: 5px; text-shadow: 0 0 10px var(--neon-blue); }
-        .profile-title { color: var(--neon-blue); margin-bottom: 40px; font-size: 1.1rem; }
-
-        #navLinks a {
-            display: block;
-            padding: 15px 0;
-            color: #ccc;
-            font-size: 1.1rem;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            transition: all 0.3s;
-            border-bottom: 1px solid rgba(0, 255, 255, 0.05);
-        }
-        #navLinks a:hover, #navLinks a.active {
-            color: #fff;
-            background: rgba(0, 255, 255, 0.1);
-            padding-left: 20px;
-            border-color: var(--neon-blue);
-            box-shadow: inset 5px 0 15px rgba(0, 255, 255, 0.3);
-        }
-
-        .sidebar-social-icons a { margin: 0 10px; font-size: 1.5rem; color: #ccc; transition: color 0.3s, text-shadow 0.3s; }
-        .sidebar-social-icons a:hover { color: var(--neon-blue); text-shadow: 0 0 15px var(--neon-blue); }
-
-        /* Main Content Area */
-        #main-content {
-            margin-left: 280px;
-            flex-grow: 1;
-            transition: margin-left 0.3s ease-in-out;
-        }
-
-        /* Menu Toggle (Hidden on Desktop) */
-        .menu-toggle { display: none; }
-
-        /* ------------------------------------ */
-        /* 2. HOME SECTION STYLES               */
-        /* ------------------------------------ */
-        #home {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            transform: translateX(100%);
+            transition: transform var(--transition-speed) ease-in-out;
+            z-index: 1001;
+            box-shadow: -4px 0 10px rgba(0, 0, 0, 0.5);
             display: flex;
-            align-items: center;
-            justify-content: center;
-            padding-top: 100px;
-            min-height: 100vh;
+            flex-direction: column;
         }
-        .hero-grid {
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
+
+        #sidebar.open {
+            transform: translateX(0);
+        }
+
+        #sidebar a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: color var(--transition-speed);
+        }
+
+        #sidebar a:hover,
+        #sidebar a.active {
+            color: var(--primary-color);
+        }
+
+        /* --- Main Content Layout --- */
+        main {
             max-width: 1200px;
-            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
         }
-        .hero-text-area {
-            text-align: left;
-            max-width: 550px;
+
+        section {
+            padding: 80px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
-        #intro-text {
-            font-size: 1.5rem;
-            color: var(--neon-blue);
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+
+        .section-content {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
         }
-        .hero-text-area h1 {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            font-weight: 700;
-            line-height: 1.2;
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            text-align: center;
+            border-bottom: 3px solid var(--secondary-color);
+            display: inline-block;
+            padding-bottom: 10px;
+            letter-spacing: 1px;
         }
+
+        .section-content > h2 {
+             width: 100%;
+             text-align: center;
+        }
+
+        /* --- Home Section Styling --- */
+        #home {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 40px;
+            min-height: calc(100vh - 80px); /* Adjusting for header height */
+        }
+
+        .home-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.1;
+        }
+
+        .home-text h1 span {
+            color: var(--primary-color);
+        }
+
         .typed-text {
-            color: var(--neon-blue);
-            font-weight: 900;
-            text-shadow: 0 0 20px var(--neon-blue);
+            font-size: 2rem;
+            color: var(--secondary-color);
+            min-height: 2.5rem;
+            display: inline-block;
+            font-weight: 700;
         }
-        .typed-cursor {
-            opacity: 1;
-            animation: blink 0.7s infinite;
-        }
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
 
-        .hero-visual-area {
-            width: 400px;
+        .home-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
             height: 400px;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
-        .animated-graphic-container {
-            position: relative;
-            width: 100%;
+
+        .bar-chart {
+            display: flex;
             height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .skill-orbit-container {
+            align-items: flex-end;
             position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
             left: 0;
-            animation: orbitSpin 30s linear infinite;
+            gap: 8px;
+            z-index: 1;
+            opacity: 0.3;
         }
 
-        @keyframes orbitSpin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        .bar {
+            width: 10px;
+            background: linear-gradient(to top, var(--secondary-color), var(--primary-color));
+            border-radius: 5px 5px 0 0;
+            transition: height 1s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        .photo-container {
-            width: 250px;
-            height: 250px;
+        #photo-container {
+            width: 280px;
+            height: 280px;
             border-radius: 50%;
             overflow: hidden;
+            border: 5px solid var(--primary-color);
+            box-shadow: 0 0 20px var(--primary-color);
             position: relative;
-            z-index: 10;
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
-            border: 5px solid var(--neon-blue);
-            background: #111;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            transform: scale(0); /* Initial state for animation */
+            animation: none;
+            z-index: 2;
         }
-        .photo-container img {
+
+        #photo-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            z-index: 2;
-            position: relative;
         }
-        .photo-container > div {
+
+        #skill-orbit-container {
             position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-around;
-            padding: 10px;
-            opacity: 0.15; /* Subtly visualizer */
-            transition: opacity 0.5s;
-            pointer-events: none;
-        }
-        .bar {
-            width: 5px;
-            background: var(--neon-blue);
-            border-radius: 2px 2px 0 0;
-            box-shadow: 0 0 5px var(--neon-blue);
-            transform: scaleY(0);
-            /* The animation will be applied by JS for responsiveness */
-        }
-
-        @keyframes barAnimate {
-            from { transform: scaleY(0.1); }
-            to { transform: scaleY(1); }
-        }
-
-        /* NEW, RELIABLE ORBIT CSS - PROVIDED BY USER */
-        .skill-icon {
-            position: absolute; 
-            width: 50px; 
-            height: 50px; 
-            background-color: #111;
-            color: #0ff; 
-            border: 1px solid #0ff; 
-            display: flex;
-            align-items: center; 
-            justify-content: center; 
-            font-size: 1.5rem;
-            border-radius: 50%; 
-            box-shadow: 0 0 10px #0ff; 
-            transition: 0.3s;
-            top: 50%; 
+            top: 50%;
             left: 50%;
-            
-            --radius: 250px; /* Radius of the orbit */
-            
-            /* 1. Rotate around the center */
-            transform: 
-                rotate(var(--rotation)) 
-                /* 2. Translate out to the edge of the circle */
-                translate(var(--radius)) 
-                /* 3. Rotate back to keep the icon itself upright (counter-rotation) */
-                rotate(calc(-1 * var(--rotation)))
-                /* 4. Center the icon circle on the translation point */
-                translate(-50%, -50%); 
-        }
-        .skill-icon:hover { background-color: #0ff; color: #111; box-shadow: 0 0 20px #fff; }
-
-        /* Rotational Positions for 11 Icons (360 / 11 = 32.727 degrees apart) - PROVIDED BY USER */
-        .icon-html { --rotation: 0deg; } 
-        .icon-css { --rotation: 32.727deg; }
-        .icon-js { --rotation: 65.454deg; } 
-        .icon-bootstrap { --rotation: 98.181deg; }
-        .icon-python { --rotation: 130.908deg; }
-        .icon-java { --rotation: 163.635deg; } 
-        .icon-mongodb { --rotation: 196.362deg; } 
-        .icon-ai-ml { --rotation: 229.089deg; } 
-        .icon-data-analytics { --rotation: 261.816deg; } 
-        .icon-powerbi { --rotation: 294.543deg; } 
-        .icon-problem { --rotation: 327.27deg; } 
-        
-
-        /* ==================================== */
-        /* 3. ABOUT SECTION (PROVIDED BY USER)  */
-        /* ==================================== */
-        .about-container { display:flex; flex-wrap:wrap; align-items:center; gap:40px; justify-content:center; margin-top: 40px; }
-        .about-photo-wrapper { width: 250px; height: 250px; position: relative; border-radius: 50%; overflow: hidden; border: 5px solid #0ff; box-shadow: 0 0 30px rgba(0, 255, 255, 0.8); transition: box-shadow 0.5s; }
-        .about-photo-wrapper:hover { box-shadow: 0 0 50px #0ff; }
-        .about-photo-wrapper .image-stack { width: 100%; height: 100%; position: relative; transition: transform 0.5s ease-out; }
-        .about-photo-wrapper img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 0.5s; }
-        .about-photo-wrapper img:first-child { opacity: 1; }
-
-        @keyframes imageCycle {
-            0% { opacity: 1; }
-            25% { opacity: 1; }
-            26% { opacity: 0; } 
-            100% { opacity: 0; }
-        }
-        
-        .about-photo-wrapper:hover .image-stack img:nth-child(1) {
-            animation: imageCycle 4s infinite 0s;
-        }
-        .about-photo-wrapper:hover .image-stack img:nth-child(2) {
-            animation: imageCycle 4s infinite 1s;
-        }
-        .about-photo-wrapper:hover .image-stack img:nth-child(3) {
-            animation: imageCycle 4s infinite 2s;
-        }
-        .about-photo-wrapper:hover .image-stack img:nth-child(4) {
-            animation: imageCycle 4s infinite 3s;
+            width: 380px;
+            height: 380px;
+            border-radius: 50%;
+            border: 1px dashed rgba(0, 188, 212, 0.4);
+            transform: translate(-50%, -50%) scale(0); /* Initial state for animation */
+            animation: none;
         }
 
-        .about-text { max-width:600px; padding:30px; background: rgba(0,255,255,0.05); border:1px solid #0ff; border-radius:15px; text-align:left; box-shadow:0 0 20px rgba(0, 255, 255, 0.5); transition: box-shadow 0.5s;}
-        .about-text:hover { box-shadow:0 0 40px #0ff; }
-        .about-text h2 { margin-top: 0; margin-bottom: 15px; font-size: 2.2rem; color: #0ff; text-shadow: none; }
+        .skill-orbit-icon {
+            position: absolute;
+            font-size: 2rem;
+            color: var(--secondary-color);
+            text-shadow: 0 0 5px var(--secondary-color);
+        }
 
-        /* ==================================== */
-        /* 4. SKILLS SECTION (PROVIDED BY USER) */
-        /* ==================================== */
-        #skills .skills-grid { max-width: 900px; margin-top: 40px; display:flex; flex-wrap:wrap; gap: 50px 60px; justify-content:center; }
-        .skill-wrapper { position: relative; display: inline-block; perspective: 1000px; margin: 15px 0; }
-        .skill { position: relative; width: 200px; height: 70px; display: flex; align-items: center; justify-content: center; padding: 0 25px; background: linear-gradient(135deg, rgba(0,255,255,0.1), rgba(0,255,255,0.05)); border: 1px solid #0ff; border-radius: 8px; transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); font-size: 1.3rem; font-weight: 500; cursor: pointer; overflow: hidden; box-shadow: 0 0 12px rgba(0, 255, 255, 0.4), 0 0 20px rgba(0, 255, 255, 0.1); z-index: 2;}
-        .skill:hover { background: linear-gradient(135deg, rgba(0,255,255,0.2), rgba(0,255,255,0.1)); box-shadow: 0 0 25px #0ff, 0 0 40px rgba(0,255,255,0.4); transform: translateY(-5px); }
-        .skill-name { color: #fff; text-shadow: 0 0 8px #0ff; transition: text-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
-        .skill:hover .skill-name { text-shadow: 0 0 20px #fff, 0 0 30px #0ff; }
-        .skill-icon-container { position: absolute; top: -15px; right: -30px; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(0,0,0,0.8); border: 2px solid rgba(0, 255, 255, 0.1); box-shadow: none; opacity: 0; transform: translate(15px, 0) scale(0.6) rotate(-45deg); transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 3;}
-        .skill-wrapper:hover .skill-icon-container { background: rgba(0,0,0,0.8); border: 2px solid #0ff; box-shadow: 0 0 25px #0ff, 0 0 40px rgba(0,255,255,0.5); opacity: 1; transform: translate(0, 0) scale(1) rotate(0deg); }
-        .skill-icon-container i { font-size: 2.2rem; color: rgba(0,255,255,0.3); text-shadow: none; transition: color 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
-        .skill-wrapper:hover .skill-icon-container i { color: #0ff; text-shadow: 0 0 15px #0ff; }
+        /* Keyframes */
+        @keyframes type { from { width: 0; } }
+        @keyframes photoFlyIn { 0% { opacity: 0; transform: scale(0.5) translateY(50px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+        @keyframes orbitFlyIn { 0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); } 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+        @keyframes spin { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
 
-        /* ==================================== */
-        /* 5. PROJECTS SECTION (PROVIDED BY USER)*/
-        /* ==================================== */
-        .projects-grid { display:flex; flex-wrap:wrap; gap:40px; justify-content:center; }
-        .project-card { width: 320px; min-height: 450px; position: relative; z-index: 1; overflow: hidden; background: rgba(0,255,255,0.03); border: 1px solid rgba(0,255,255,0.2); border-radius:15px; padding: 0; text-align:center; transition: all 0.4s ease-out; box-shadow: 0 0 8px rgba(0, 255, 255, 0.2); cursor: pointer; }
-        .project-card:hover { transform: translateY(-10px); border-color: #0ff; box-shadow: 0 0 25px #0ff, 0 0 45px rgba(0, 255, 255, 0.5); }
-        .project-visual { width: 100%; height: 180px; background: #111; border-top-left-radius: 15px; border-top-right-radius: 15px; position: relative; overflow: hidden; }
-        .project-visual img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: opacity 0.4s ease; }
-        .project-card:hover .project-visual img { opacity: 1; }
-        .project-content { padding: 15px 25px 25px; }
-        @keyframes codeScan { 0% { transform: skewX(-30deg) translateX(-150%); } 100% { transform: skewX(-30deg) translateX(300%); } }
-        .project-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient( 90deg, transparent, rgba(0, 255, 255, 0.5) 30%, transparent 70% ); opacity: 0; transform: skewX(-30deg) translateX(-150%); transition: opacity 0.5s; z-index: 2; }
-        .project-card:hover::before { opacity: 1; animation: codeScan 1.5s infinite linear; }
-        .project-card * { position: relative; z-index: 3; }
-        .project-card h3 { font-size: 1.8rem; margin-bottom: 10px; color: #fff; text-shadow: 0 0 8px #0ff; transition: text-shadow 0.4s; }
-        .project-card:hover h3 { text-shadow: 0 0 20px #fff, 0 0 30px #0ff; }
-        
-        /* ==================================== */
-        /* 6. CERTIFICATIONS SECTION (PROVIDED BY USER)*/
-        /* ==================================== */
-        .btn-verify { display:inline-block; padding:8px 15px; border:1px solid #0ff; color:#111; border-radius:5px; font-size: 0.9rem; font-weight: bold; transition: all 0.3s ease; text-transform: uppercase; background: #0ff; box-shadow: 0 0 10px #0ff; }
-        .btn-verify:hover { background: #00cccc; box-shadow: 0 0 25px #0ff; transform: translateY(-1px); }
-        .certifications-grid { display:flex; flex-wrap:wrap; gap:30px; justify-content:center; }
-        .cert-card { width: 350px; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; background: rgba(0,255,255,0.03); border: 1px solid rgba(0,255,255,0.2); border-radius:15px; padding: 30px; text-align:center; transition: all 0.4s ease-out; box-shadow: 0 0 8px rgba(0, 255, 255, 0.2); cursor: pointer; }
-        .cert-card:hover { transform: translateY(-8px); border-color: #0ff; box-shadow: 0 0 30px #0ff; }
-        .cert-content h3 { font-size: 1.4rem; margin-bottom: 5px; margin-top: 15px; color: #fff; text-shadow: 0 0 10px #0ff; }
-        .cert-icon { font-size: 3.5rem; color: #0ff; margin-bottom: 10px; text-shadow: 0 0 15px #0ff; transition: all 0.4s ease; }
-        .cert-card:hover .cert-icon { transform: scale(1.1); text-shadow: 0 0 30px #fff; }
-        .issuer { color: #0ff; font-weight: 500; }
-        .date { font-size: 0.9rem; color: #aaa; margin-top: 5px; margin-bottom: 20px; }
-        @keyframes chargeGlow { 0% { transform: rotate(0deg); opacity: 0.5; } 50% { opacity: 0.8; } 100% { transform: rotate(360deg); opacity: 0.5; } }
-        .cert-card::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: conic-gradient( transparent 0%, rgba(0, 255, 255, 0.5) 30%, transparent 70% ); opacity: 0; transition: opacity 0.4s ease; z-index: 0; }
-        .cert-card:hover::after { opacity: 1; animation: chargeGlow 2s linear infinite; }
-        .cert-card * { position: relative; z-index: 1; }
+        /* --- Skills Section Styling (Provided Section) --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
 
-        /* ==================================== */
-        /* 7. CONTACT SECTION (PROVIDED BY USER)*/
-        /* ==================================== */
-        #contact { min-height: 80vh; }
-        .contact-container { display: flex; gap: 60px; align-items: flex-start; justify-content: center; width: 100%; background: #0a0a0a; padding: 50px; border-radius: 12px; border: 1px solid #222; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5), 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 0 5px rgba(255, 255, 255, 0.05); }
-        .contact-form { flex: 2; max-width: 650px; background: #000; border: 1px solid #1a1a1a; padding: 30px; border-radius: 10px; position: relative; border-top: 4px solid #0ff; box-shadow: inset 0 0 5px rgba(0, 255, 255, 0.1); }
-        .form-group { margin-bottom: 25px; text-align: left; }
-        .form-group label { display: block; margin-bottom: 8px; color: #fff; font-weight: 500; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.5px; }
-        .form-group input, .form-group textarea { width: 100%; padding: 15px; background: #000; border: 1px solid #333; color: #fff; border-radius: 6px; font-size: 1rem; transition: all 0.2s ease-in-out; }
-        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #0ff; box-shadow: 0 0 20px #0ff; background: #000; }
-        .form-group textarea { resize: vertical; min-height: 180px; }
-        .contact-info { flex: 1; max-width: 400px; text-align: left; padding-top: 20px; }
-        .contact-info h3 { margin-bottom: 40px; }
-        .contact-item { display: flex; align-items: center; margin-bottom: 35px; transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-        .contact-item:hover { transform: translateX(8px); }
-        .contact-item a { display: flex; align-items: center; color: #fff; transition: color 0.3s ease; width: 100%; padding: 5px 0; }
-        .contact-item a:hover { color: #0ff; text-shadow: 0 0 10px #0ff; }
-        .contact-item i { font-size: 2.2rem; color: #0ff; margin-right: 20px; text-shadow: 0 0 10px rgba(0, 255, 255, 0.5); min-width: 30px; }
-        .contact-details span { font-size: 1.1rem; font-weight: 400; color: #ccc; }
-        
-        /* ==================================== */
-        /* 8. SUCCESS MODAL OVERLAY (PROVIDED BY USER)*/
-        /* ==================================== */
-        #successOverlay {
+        .skill-wrapper {
+            background-color: var(--bg-color);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all var(--transition-speed);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(233, 69, 96, 0.2);
+        }
+
+        .skill-wrapper:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 0 0 15px var(--primary-color);
+        }
+
+        .skill-icon-container i {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+            text-shadow: 0 0 5px var(--secondary-color);
+        }
+
+        .skill-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+
+        /* --- Projects Section Styling (Provided Section) --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .project-card {
+            background-color: var(--bg-color);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6), 0 0 15px var(--secondary-color);
+        }
+
+        .project-visual img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .project-content {
+            padding: 20px;
+        }
+
+        .project-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .project-content p {
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            color: #ccc;
+        }
+
+        .button-group .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: var(--text-color);
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: background 0.3s, transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .button-group .btn:hover {
+            background: var(--secondary-color);
+            color: var(--bg-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        /* --- Certifications Section Styling (Provided Section) --- */
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .cert-card {
+            background-color: var(--bg-color);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            text-align: center;
+            border: 2px solid var(--secondary-color);
+            transition: all var(--transition-speed);
+        }
+
+        .cert-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0, 188, 212, 0.5);
+        }
+
+        .cert-icon i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .cert-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: var(--text-color);
+        }
+
+        .issuer {
+            font-style: italic;
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+        }
+
+        .date {
+            font-size: 0.85rem;
+            color: #aaa;
+            margin-bottom: 20px;
+        }
+
+        .btn-verify {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: var(--bg-color);
+            padding: 8px 15px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 700;
+            transition: background 0.3s;
+        }
+
+        .btn-verify:hover {
+            background: var(--primary-color);
+            color: var(--text-color);
+        }
+
+        /* --- Contact Section Styling (Provided Section) --- */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .contact-form {
+            background: var(--bg-color);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 0 10px rgba(233, 69, 96, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background-color: #111;
+            color: var(--text-color);
+            transition: border-color 0.3s;
+            resize: vertical;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 188, 212, 0.5);
+        }
+
+        .contact-info {
+            background: var(--bg-color);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 0 10px rgba(0, 188, 212, 0.3);
+        }
+
+        .contact-info h3 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 5px;
+        }
+
+        .contact-list a {
+            display: flex;
+            align-items: center;
+            color: var(--text-color);
+            text-decoration: none;
+            margin-bottom: 15px;
+            transition: color 0.3s;
+        }
+
+        .contact-list a:hover {
+            color: var(--primary-color);
+        }
+
+        .contact-list i {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            color: var(--secondary-color);
+        }
+
+        .contact-details span {
+            font-size: 1rem;
+        }
+
+        /* --- Modal Overlays (Success & Error) --- */
+        .overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9); 
-            z-index: 200; 
-            display: none; 
-            align-items: center;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: none; /* Controlled by JS */
             justify-content: center;
-            backdrop-filter: blur(5px);
+            align-items: center;
+            z-index: 2000;
+            animation: fadeIn 0.3s forwards;
         }
 
-        .success-box {
-            background: #0a0a0a;
-            border: 2px solid #0ff;
-            border-radius: 15px;
-            padding: 40px 60px;
+        .modal-box {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--border-radius);
             text-align: center;
-            box-shadow: 0 0 40px rgba(0, 255, 255, 0.8), 0 0 100px rgba(0, 255, 255, 0.3);
-            animation: fadeInScale 0.5s ease-out;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+            transform: scale(0.9);
+            animation: zoomIn 0.3s forwards;
+        }
+
+        .success-icon, .error-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
         }
 
         .success-icon {
-            font-size: 4rem;
-            color: #0ff;
+            color: #4CAF50;
+        }
+
+        .error-icon {
+            color: var(--primary-color);
+        }
+
+        .modal-box h3 {
+            margin-bottom: 10px;
+        }
+
+        .modal-box p {
             margin-bottom: 20px;
-            text-shadow: 0 0 15px #0ff;
-        }
-
-        .success-box h3 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: #fff;
-            text-shadow: 0 0 10px #0ff;
-        }
-
-        .success-box p {
             color: #ccc;
-            margin-bottom: 30px;
-            font-size: 1.1rem;
         }
 
-        @keyframes fadeInScale {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes zoomIn { from { transform: scale(0.8); } to { transform: scale(1); } }
 
-        /* ==================================== */
-        /* 9. RESPONSIVE DESIGN (PROVIDED BY USER)*/
-        /* ==================================== */
 
-        /* 1200px: Medium Screens - Adjusting sidebar padding slightly */
-        @media(max-width:1200px){
-            .hero-grid { flex-direction: column; gap: 50px; }
-            .hero-text-area { max-width: 100%; text-align: center; }
-            .hero-visual-area { width: 350px; height: 350px; }
-            .photo-container { width: 200px; height: 200px; border: 4px solid rgba(0, 255, 255, 0.5); }
-            .skill-icon { width: 50px; height: 50px; }
-            .skill-icon i { font-size: 1.8rem; }
-            .skill-icon { --radius: 175px !important; } /* Adjust orbit radius for smaller screens */
-        }
-
-        /* 900px: Mobile Layout Activation */
-        @media(max-width:900px){
-            /* Mobile Layout Overrides */
-
-            /* Sidebar Collapse */
-            #sidebar {
-                left: -300px; 
-                width: 250px;
-                background: rgba(0, 0, 0, 0.98);
-                padding-top: 80px;
-                border-right: 2px solid #0ff;
-                z-index: 105; /* Ensure it is over the main content */
-            }
-            #sidebar.open {
-                left: 0;
-                box-shadow: 0 0 50px rgba(0, 255, 255, 0.8);
-            }
-            
-            /* Main Content Reset - CRITICAL for Mobile */
-            #main-content {
-                margin-left: 0; /* Remove desktop offset */
+        /* --- Responsive Design (Mobile) --- */
+        @media (max-width: 900px) {
+            .desktop-nav {
+                display: none;
             }
 
-            /* Show Menu Toggle Button */
-            .menu-toggle {
-                display: flex; 
-                position: fixed; 
-                top: 20px;
-                left: 20px;
-                z-index: 110; /* Ensure it is above the sidebar */
-                color: #0ff;
-                font-size: 1.8rem;
-                cursor: pointer;
-                width: 50px;
-                height: 50px;
-                background: rgba(0, 0, 0, 0.7);
-                border: 1px solid #0ff;
-                border-radius: 5px;
-                align-items: center;
-                justify-content: center;
-                box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
-                transition: all 0.3s;
+            .menu-icon {
+                display: block;
             }
-            
-            /* Global Section Adjustments */
-            section { 
-                padding: 80px 5%; 
+
+            #home {
+                grid-template-columns: 1fr;
+                text-align: center;
                 min-height: auto;
+                padding-top: 100px;
             }
-            
-            /* Home */
-            #home { padding: 80px 20px; }
-            .hero-text-area h1 { font-size: 3rem; }
-            
-            /* General Layout */
-            .about-container { flex-direction: column; }
-            .contact-container { flex-direction: column; align-items: center; }
-            .contact-form, .contact-info { max-width: 100%; width: 100%; }
-            .skill-orbit-container { animation-duration: 40s; }
-        }
 
-        /* 600px: Extra fine-tuning for smaller smartphones */
-        @media(max-width:600px){
-            h2 { font-size: 2.2rem; margin-bottom: 30px; }
-            .hero-text-area h1 { font-size: 2.2rem; }
-            .typed-cursor { font-size: 2.2rem; }
-            #intro-text { font-size: 1.2rem; }
-            .btn { padding: 10px 20px; font-size: 1rem; margin-right: 10px; }
-            .button-group { display: flex; flex-direction: column; gap: 15px; }
-            .btn-secondary { margin-left: 0; }
-            .about-text { padding: 20px; }
-            .project-card, .cert-card { width: 90%; max-width: 350px; }
-            .contact-container { padding: 20px; }
-            .contact-form { padding: 20px; }
-            .contact-item i { font-size: 1.8rem; }
-            .contact-details span { font-size: 1rem; }
-            .success-box { padding: 30px; }
-            .success-box h3 { font-size: 1.8rem; }
+            .home-visual {
+                height: 300px;
+            }
+
+            .home-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .typed-text {
+                font-size: 1.5rem;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .section-content {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .skills-grid, .projects-grid, .certifications-grid {
+                gap: 15px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Mobile Menu Toggle Button -->
-    <i class="fas fa-bars menu-toggle" id="menuIcon" onclick="toggleMenu()"></i>
-
-    <!-- Sidebar Navigation -->
-    <nav id="sidebar">
-        <div class="profile-photo">
-            <!-- Using a placeholder image instead of local file path -->
-            <img src="https://placehold.co/150x150/111/0ff?text=Sathish+K" alt="Sathish K Profile">
-        </div>
-        <h3 class="profile-name">Sathish K</h3>
-        <p class="profile-title">Student & Developer</p>
-
-        <div class="sidebar-social-icons" style="margin-bottom: 30px;">
-            <a href="https://github.com/sathish-k2005" target="_blank"><i class="fab fa-github"></i></a>
-            <a href="https://www.linkedin.com/in/sathish-k2005?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="https://www.instagram.com/sathish_kuppan_?igsh=MXFtbWF4aG55ZGF0Yg==" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://twitter.com/sathishkuppan01" target="_blank"><i class="fab fa-twitter"></i></a>
-        </div>
-        
-        <div id="navLinks">
-            <a href="#home" class="nav-link active">Home</a>
-            <a href="#about" class="nav-link">About</a>
+    <!-- Header & Navigation -->
+    <header>
+        <a href="#home" class="logo">Sathish K</a>
+        <nav class="desktop-nav">
+            <a href="#home" class="nav-link">Home</a>
             <a href="#skills" class="nav-link">Skills</a>
             <a href="#projects" class="nav-link">Projects</a>
             <a href="#certifications" class="nav-link">Certifications</a>
             <a href="#contact" class="nav-link">Contact</a>
-        </div>
-        
+        </nav>
+        <i id="menuIcon" class="fas fa-bars menu-icon" onclick="toggleMenu()"></i>
+    </header>
+
+    <!-- Sidebar for Mobile -->
+    <nav id="sidebar">
+        <a href="#home" class="nav-link">Home</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#certifications" class="nav-link">Certifications</a>
+        <a href="#contact" class="nav-link">Contact</a>
     </nav>
-    
-    <!-- Main Content Area -->
-    <main id="main-content">
-        <!-- 1. HOME SECTION -->
+
+    <main>
+        <!-- Home Section (Required for JS animations to work) -->
         <section id="home">
-            <div class="section-content">
-                <div class="hero-grid">
-                    <div class="hero-text-area">
-                        <p id="intro-text">Hello, I'm Sathish K</p>
-                        <h1>
-                            I am a 
-                            <span class="typed-text"></span>
-                            <span class="typed-cursor">|</span>
-                        </h1>
-                        <p style="margin-bottom: 30px;">
-                            “Rise after every fall; each failure is a lesson shaping your path to success and proving your strength to the world and yourself.”
-                        </p>
-                        <div class="button-group">
-                            <a href="#contact" class="btn">Let's Connect</a>
-                            <a href="./assets/Sathishresume.pdf" target="_blank" class="btn btn-secondary">View Resume</a>
-                        </div>
-                    </div>
-                    
-                    <div class="hero-visual-area">
-                        <div class="animated-graphic-container">
-                            <div class="skill-orbit-container" id="skill-orbit-container">
-                                <div class="skill-icon icon-html"><i class="fab fa-html5"></i></div>
-                                <div class="skill-icon icon-css"><i class="fab fa-css3-alt"></i></div>
-                                <div class="skill-icon icon-js"><i class="fab fa-js-square"></i></div>
-                                <div class="skill-icon icon-bootstrap"><i class="fab fa-bootstrap"></i></div>
-                                <div class="skill-icon icon-python"><i class="fab fa-python"></i></div>
-                                <div class="skill-icon icon-java"><i class="fab fa-java"></i></div>
-                                <div class="skill-icon icon-mongodb"><i class="fas fa-database"></i></div>
-                                <div class="skill-icon icon-ai-ml"><i class="fas fa-brain"></i></div>
-                                <div class="skill-icon icon-data-analytics"><i class="fas fa-chart-line"></i></div>
-                                <div class="skill-icon icon-powerbi"><i class="fas fa-chart-pie"></i></div>
-                                <div class="skill-icon icon-problem"><i class="fas fa-lightbulb"></i></div>
-                            </div>
-                            <div class="photo-container" id="photo-container">
-                                <div>
-                                    <!-- Visualizer bars -->
-                                    <div class="bar" data-height="80"></div>
-                                    <div class="bar" data-height="50"></div>
-                                    <div class="bar" data-height="90"></div>
-                                    <div class="bar" data-height="65"></div>
-                                    <div class="bar" data-height="75"></div>
-                                    <div class="bar" data-height="40"></div>
-                                    <div class="bar" data-height="85"></div>
-                                    <div class="bar" data-height="55"></div>
-                                    <div class="bar" data-height="95"></div>
-                                    <div class="bar" data-height="70"></div>
-                                </div>
-                                <!-- Using a placeholder image instead of local file path -->
-                                <img src="https://placehold.co/250x250/111/0ff?text=Sathish+K" onerror="this.onerror=null; this.src='https://placehold.co/250x250/111/0ff?text=Sathish+K';" alt="My Profile Photo">
-                            </div>
-                        </div>
-                    </div>
+            <div class="home-text">
+                <p style="color: var(--secondary-color); font-weight: 500;">Hello, I'm</p>
+                <h1>Sathish <span>Kuppan</span></h1>
+                <span class="typed-text-label">I am a </span><span class="typed-text"></span><span class="cursor" style="color: var(--secondary-color);">|</span>
+                <p style="margin-top: 15px; color: #aaa;">Turning complex problems into elegant code and insightful data visualizations.</p>
+                <a href="#projects" class="btn" style="margin-top: 30px;">View My Work</a>
+            </div>
+
+            <div class="home-visual">
+                <!-- Placeholder for Bar Chart Animation -->
+                <div class="bar-chart">
+                    <div class="bar" data-height="85"></div>
+                    <div class="bar" data-height="60"></div>
+                    <div class="bar" data-height="75"></div>
+                    <div class="bar" data-height="90"></div>
+                    <div class="bar" data-height="50"></div>
+                    <div class="bar" data-height="80"></div>
+                    <div class="bar" data-height="70"></div>
+                    <div class="bar" data-height="95"></div>
+                </div>
+
+                <!-- Photo Container -->
+                <div id="photo-container">
+                    <!-- Placeholder image URL -->
+                    <img src="https://placehold.co/280x280/e94560/FFFFFF?text=PROFILE+PHOTO" alt="Profile Photo">
+                </div>
+
+                <!-- Skill Orbit Container -->
+                <div id="skill-orbit-container">
+                    <i class="fab fa-react skill-orbit-icon" style="top: 0; left: 50%; transform: translate(-50%, -50%);"></i>
+                    <i class="fab fa-python skill-orbit-icon" style="top: 25%; right: 0; transform: translate(50%, -50%);"></i>
+                    <i class="fab fa-js-square skill-orbit-icon" style="bottom: 0; left: 50%; transform: translate(-50%, 50%);"></i>
+                    <i class="fas fa-database skill-orbit-icon" style="top: 75%; left: 0; transform: translate(-50%, -50%);"></i>
                 </div>
             </div>
         </section>
 
-        <!-- 2. ABOUT SECTION -->
-        <section id="about">
-            <h2>About Me</h2>
-            <div class="about-container">
-                <div class="about-photo-wrapper">
-                    <div class="image-stack">
-                        <!-- Placeholder images for the hover cycle effect -->
-                        <img src="https://placehold.co/250x250/111/0ff?text=Coding" alt="Coding">
-                        <img src="https://placehold.co/250x250/111/0ff?text=Design" alt="Design">
-                        <img src="https://placehold.co/250x250/111/0ff?text=Analytics" alt="Analytics">
-                        <img src="https://placehold.co/250x250/111/0ff?text=Learning" alt="Learning">
-                    </div>
-                </div>
-                <div class="about-text">
-                    <h2>Developer & Learner</h2>
-                    <p>I am a passionate student developer with a strong foundation in Web Development (HTML, CSS, JavaScript) and core programming languages like **Python** and **Java**. My journey is focused on creating efficient and scalable solutions, from dynamic web applications to powerful data analysis tools.</p>
-                    <p style="margin-top: 15px;">I enjoy exploring emerging technologies, particularly in **AI/ML** and **Data Analytics**. I thrive on complex problem-solving and am always eager to take on projects that challenge me to learn and grow. Let's build something impactful together!</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 3. SKILLS SECTION -->
+        <!-- --- SKILLS SECTION (Provided) --- -->
         <section id="skills">
-            <h2>Core Skills</h2>
-            <div class="skills-grid">
-                <!-- Grid-style skills cards -->
-                <div class="skill-wrapper">
-                    <div class="skill"><span class="skill-name">Front-End Dev</span></div>
-                    <div class="skill-icon-container"><i class="fas fa-desktop"></i></div>
-                </div>
-                <div class="skill-wrapper">
-                    <div class="skill"><span class="skill-name">Python & Data</span></div>
-                    <div class="skill-icon-container"><i class="fab fa-python"></i></div>
-                </div>
-                <div class="skill-wrapper">
-                    <div class="skill"><span class="skill-name">Java/C++</span></div>
-                    <div class="skill-icon-container"><i class="fab fa-java"></i></div>
-                </div>
-                <div class="skill-wrapper">
-                    <div class="skill"><span class="skill-name">Database (MongoDB)</span></div>
-                    <div class="skill-icon-container"><i class="fas fa-database"></i></div>
-                </div>
-                <div class="skill-wrapper">
-                    <div class="skill"><span class="skill-name">AI / Machine Learning</span></div>
-                    <div class="skill-icon-container"><i class="fas fa-brain"></i></div>
-                </div>
-                <div class="skill-wrapper">
-                    <div class="skill"><span class="skill-name">Bootstrap / Tailwind</span></div>
-                    <div class="skill-icon-container"><i class="fab fa-bootstrap"></i></div>
+            <div class="section-content">
+                <h2>My Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-wrapper"><div class="skill"><span class="skill-name">HTML</span></div><div class="skill-icon-container"><i class="fab fa-html5"></i></div></div>
+                    <div class="skill-wrapper"><div class="skill"><span class="skill-name">CSS</span></div><div class="skill-icon-container"><i class="fab fa-css3-alt"></i></div></div>
+                    <div class="skill-wrapper"><div class="skill"><span class="skill-name">JavaScript</span></div><div class="skill-icon-container"><i class="fab fa-js-square"></i></div></div>
+                    <div class="skill-wrapper"><div class="skill"><span class="skill-name">Python</span></div><div class="skill-icon-container"><i class="fab fa-python"></i></div></div>
+                    <div class="skill-wrapper"><div class="skill"><span class="skill-name">Bootstrap</span></div><div class="skill-icon-container"><i class="fab fa-bootstrap"></i></div></div>
+                    <div class="skill-wrapper"><div class="skill"><span class="skill-name">React</span></div><div class="skill-icon-container"><i class="fab fa-react"></i></div></div>
+                    <div class="skill-wrapper"><div class="skill"><span class="skill-name">MongoDB</span></div><div class="skill-icon-container"><i class="fas fa-database"></i> </div></div>
+                    <div class="skill-wrapper"><div class="skill"><span class="skill-name">MySQL</span></div><div class="skill-icon-container"><i class="fas fa-database"></i> </div></div>
+                    <div class="skill-wrapper"><div class="skill"><span class="skill-name">Git & GitHub</span></div><div class="skill-icon-container"><i class="fab fa-git-alt"></i></div></div>
+                    <div class="skill-wrapper"><div class="skill"><span class="skill-name">Java</span></div><div class="skill-icon-container"><i class="fab fa-java"></i></div></div>
+                    <div class="skill-wrapper"><div class="skill"><span class="skill-name">Power BI</span></div><div class="skill-icon-container"><i class="fas fa-chart-pie"></i></div></div>
                 </div>
             </div>
         </section>
 
-        <!-- 4. PROJECTS SECTION -->
+        <!-- --- PROJECTS SECTION (Provided) --- -->
         <section id="projects">
-            <h2>Featured Projects</h2>
-            <div class="projects-grid">
-                <!-- Project Card 1 -->
-                <div class="project-card">
-                    <div class="project-visual">
-                         <img src="https://placehold.co/320x180/111/0ff?text=Web+App" alt="Web App Project">
+            <div class="section-content">
+                <h2>My Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-visual">
+                            <img src="https://placehold.co/320x200/00bcd4/1a1a2e?text=STOCK+MARKET+DASHBOARD" alt="Stock Market Dashboard Preview">
+                        </div>
+                        <div class="project-content">
+                            <h3>Big Bull Trends</h3>
+                            <p>Stock market trend prediction using LSTM, ARIMA, Prophet & hybrid models. Featured real-time data ingestion and visualization dashboard.</p>
+                            <div class="button-group"><a class="btn" href="#" target="_blank">View Project</a> </div>
+                        </div>
                     </div>
-                    <div class="project-content">
-                        <h3>Portfolio Website V3</h3>
-                        <p class="text-xs text-gray-400 mb-4">HTML, CSS (Neon Theme), JavaScript, Responsive Design</p>
-                        <p>A personal showcase built with a focus on modern design principles, complex CSS animations (like the orbit effect), and full mobile responsiveness.</p>
-                        <a href="#" class="btn btn-verify mt-5">View Project</a>
+                    <div class="project-card">
+                        <div class="project-visual">
+                            <!-- Replaced relative path with placeholder URL -->
+                            <img src="https://placehold.co/320x200/e94560/1a1a2e?text=NETFLIX+DASHBOARD" alt="Netflix Dashboard Preview">
+                        </div>
+                        <div class="project-content">
+                            <h3>Netflix Dashboard</h3>
+                            <p>Developed an interactive Power BI dashboard to analyze Netflix content and viewer trends. Visualized data by genre, country, and release year to identify streaming patterns and provide insights into audience preferences.</p><br>
+                            <div class="button-group"><a class="btn" href="https://github.com/sathish-k2005/netflix-dashboard" target="_blank">View Project</a> </div>
+                        </div>
                     </div>
-                </div>
-                
-                <!-- Project Card 2 -->
-                <div class="project-card">
-                    <div class="project-visual">
-                         <img src="https://placehold.co/320x180/111/0ff?text=Data+Analysis" alt="Data Analysis Project">
-                    </div>
-                    <div class="project-content">
-                        <h3>E-Commerce Data Analysis</h3>
-                        <p class="text-xs text-gray-400 mb-4">Python (Pandas, Matplotlib), PowerBI Integration</p>
-                        <p>Analyzed large transactional datasets to identify key consumer trends, peak sales periods, and inventory optimization opportunities using PowerBI visualization.</p>
-                        <a href="#" class="btn btn-verify mt-5">View Report</a>
-                    </div>
-                </div>
-
-                <!-- Project Card 3 -->
-                <div class="project-card">
-                    <div class="project-visual">
-                         <img src="https://placehold.co/320x180/111/0ff?text=ML+Model" alt="ML Model Project">
-                    </div>
-                    <div class="project-content">
-                        <h3>Basic Sentiment Classifier</h3>
-                        <p class="text-xs text-gray-400 mb-4">Python (NLTK, Scikit-learn), MongoDB</p>
-                        <p>A machine learning model trained to classify text input as positive or negative sentiment, demonstrating fundamental ML pipeline construction and database interaction.</p>
-                        <a href="#" class="btn btn-verify mt-5">View Code</a>
+                    <div class="project-card">
+                        <div class="project-visual">
+                            <img src="https://placehold.co/320x200/00bcd4/1a1a2e?text=E-COMMERCE+API" alt="E-commerce API Placeholder">
+                        </div>
+                        <div class="project-content">
+                            <h3>E-commerce API</h3>
+                            <p>A headless e-commerce backend built with Node.js and MongoDB, handling authentication, inventory, and secure payment integrations.</p>
+                            <div class="button-group"><a class="btn" href="#" target="_blank">View Project</a> </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-        
-        <!-- 5. CERTIFICATIONS SECTION -->
+
+        <!-- --- CERTIFICATIONS SECTION (Provided) --- -->
         <section id="certifications">
-            <h2>Certifications & Achievements</h2>
-            <div class="certifications-grid">
-                <div class="cert-card">
-                    <i class="fas fa-certificate cert-icon"></i>
-                    <div class="cert-content">
-                        <h3>Foundational Python Programming</h3>
-                        <p class="issuer">Great Learning Academy</p>
-                        <p class="date">Issued: June 2023</p>
-                        <p>Completed intensive training in Python syntax, data structures, and object-oriented programming fundamentals.</p>
-                        <a href="#" target="_blank" class="btn-verify mt-4">Verify</a>
+            <div class="section-content">
+                <h2>Certifications & Achievements</h2>
+                <div class="certifications-grid">
+                    <div class="cert-card">
+                        <div class="cert-icon"><i class="fab fa-database"></i></div>
+                        <h3>BootCamp in Retail Sales & Growth Analysis Dashboard using Power BI</h3>
+                        <p class="issuer">NoviTech</p>
+                        <p class="date">Issued: Sep 2025 | ID: NT_RBT609</p>
+                        <div class="cert-action"><a href="https://drive.google.com/file/d/1uQFYhVar1clakFYgBg6O7AoGQ-C7joDL/view?usp=drivesdk" target="_blank" class="btn-verify">View Certificate</a></div>
                     </div>
-                </div>
-                <div class="cert-card">
-                    <i class="fas fa-chart-bar cert-icon"></i>
-                    <div class="cert-content">
-                        <h3>Data Visualization with PowerBI</h3>
-                        <p class="issuer">Coursera</p>
-                        <p class="date">Issued: August 2023</p>
-                        <p>Mastered techniques for transforming raw data into impactful, interactive dashboards for business intelligence.</p>
-                        <a href="#" target="_blank" class="btn-verify mt-4">Verify</a>
+                    <div class="cert-card">
+                        <div class="cert-icon"><i class="fas fa-laptop-code"></i></div>
+                        <h3>Digital Marketing & Web Development Intenship</h3>
+                        <p class="issuer">iStudio TECHNOLOGIES</p>
+                        <p class="date">Issued: Jul 2025</p>
+                        <div class="cert-action"><a href="https://drive.google.com/file/d/1vcsaezR5StSXVGEXiuLw7asVvf2w1Ri7/view?usp=drivesdk" target="_blank" class="btn-verify">View Certificate</a></div>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-icon"><i class="fas fa-code-branch"></i></div>
+                        <h3> Real-World API Skills for Ready Developers </h3>
+                        <p class="issuer">NoviTech</p>
+                        <p class="date">Issued: JUL 2025 | ID: NT_FSDB317</p>
+                        <div class="cert-action"><a href="https://drive.google.com/file/d/1NDUER5NWrZY8G-8PUlcmwjikHPaPfq_K/view?usp=drivesdk" target="_blank" class="btn-verify">View Certificate</a></div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 6. CONTACT SECTION -->
+        <!-- --- CONTACT SECTION (Provided) --- -->
         <section id="contact">
-            <h2>Get In Touch</h2>
-            <div class="contact-container">
-                <div class="contact-form">
-                    <form id="contactForm">
+            <div class="section-content">
+                <h2>Initiate Contact Protocol</h2>
+                <p>
+                    Ready to connect? Send a direct message or find me across the digital grid.
+                </p>
+                <div class="contact-container">
+                    <form id="contactForm" class="contact-form" onsubmit="handleFormSubmit(event)">
                         <div class="form-group">
                             <label for="name">Your Name</label>
-                            <input type="text" id="name" name="name" required>
+                            <input type="text" id="name" name="from_name" required>
                         </div>
                         <div class="form-group">
                             <label for="email">Your Email</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" name="subject" required>
+                            <input type="email" id="email" name="from_email" required>
                         </div>
                         <div class="form-group">
                             <label for="message">Message</label>
                             <textarea id="message" name="message" required></textarea>
                         </div>
-                        <button type="submit" class="btn" style="width: 100%; margin-top: 15px;">Send Message</button>
+                        <button type="submit" class="btn">Send Message</button>
                     </form>
-                </div>
 
-                <div class="contact-info">
-                    <h3>Contact Details</h3>
-                    <div class="contact-item">
-                        <a href="mailto:sathishk.dev@example.com">
-                            <i class="fas fa-envelope"></i>
-                            <div class="contact-details">
-                                <span>sathishk.dev@example.com</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="contact-item">
-                        <a href="tel:+1234567890">
-                            <i class="fas fa-phone-alt"></i>
-                            <div class="contact-details">
-                                <span>+1 (234) 567-890</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="contact-item">
-                        <a href="https://maps.google.com/?q=My+Location" target="_blank">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <div class="contact-details">
-                                <span>Chennai, Tamil Nadu, India</span>
-                            </div>
-                        </a>
+                    <div class="contact-info">
+                        <h3>Direct Connect</h3>
+                        <div class="contact-list">
+                            <div class="contact-item"><a href="mailto:sathishkuppan015@gmail.com"><i class="fas fa-envelope"></i><div class="contact-details"><span>sathishkuppan015@gmail.com</span></div></a></div>
+                            <div class="contact-item"><a href="tel:8072937768"><i class="fas fa-mobile-alt"></i><div class="contact-details"><span>8072937768</span></div></a></div>
+                            <div class="contact-item"><a href="https://www.linkedin.com/in/sathish-k2005?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank"><i class="fab fa-linkedin"></i><div class="contact-details"><span>LinkedIn Profile</span></div></a></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Footer -->
-        <footer style="padding: 20px; text-align: center; border-top: 1px solid rgba(0, 255, 255, 0.1);">
-            <p style="font-size: 0.9rem; color: #555;">&copy; 2024 Sathish K. All rights reserved. | Built with Neon Energy.</p>
-        </footer>
+        <!-- Success Modal (Provided) -->
+        <div id="successOverlay" class="overlay">
+            <div class="modal-box">
+                <i class="fas fa-check-circle success-icon"></i>
+                <h3>Message Sent Successfully!</h3>
+                <p>Thank you for reaching out, Sathish will get back to you soon.</p>
+                <button class="btn" onclick="closeSuccessOverlay()">Close</button>
+            </div>
+        </div>
+
+        <!-- Error Modal (NEW - to replace alert()) -->
+        <div id="errorOverlay" class="overlay">
+            <div class="modal-box">
+                <i class="fas fa-exclamation-triangle error-icon"></i>
+                <h3>Error Sending Message!</h3>
+                <p id="errorMessageText">The message failed to send. Please check your network connection and try again.</p>
+                <button class="btn" onclick="closeErrorOverlay()" style="background: var(--secondary-color);">Close</button>
+            </div>
+        </div>
 
     </main>
 
-    <!-- Success Modal Overlay -->
-    <div id="successOverlay">
-        <div class="success-box">
-            <i class="fas fa-check-circle success-icon"></i>
-            <h3>Message Sent!</h3>
-            <p>Thank you for reaching out. I'll get back to you as soon as possible.</p>
-            <button class="btn" onclick="document.getElementById('successOverlay').style.display='none';" style="padding: 10px 30px;">Close</button>
-        </div>
-    </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // 1. Typed.js Initialization
-            // This creates the dynamic typing effect on the home page
-            new Typed('.typed-text', {
-                strings: ["Developer.", "Learner.", "Problem Solver.", "Innovator."],
-                typeSpeed: 70,
-                backSpeed: 50,
-                loop: true,
-                showCursor: false
-            });
+        // --- Global Helpers for Modals ---
+        function showModal(id) {
+            document.getElementById(id).style.display = 'flex';
+        }
 
-            // 2. Navigation Link Highlighting
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('.nav-link');
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
 
-            window.addEventListener('scroll', () => {
-                let current = '';
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop - 150; // Offset for header/padding
-                    const sectionHeight = section.clientHeight;
-                    if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-                        current = section.getAttribute('id');
-                    }
-                });
+        function showSuccessOverlay() { showModal('successOverlay'); }
+        function closeSuccessOverlay() { closeModal('successOverlay'); }
+        
+        function showErrorOverlay(message) {
+            document.getElementById('errorMessageText').textContent = message;
+            showModal('errorOverlay');
+        }
+        function closeErrorOverlay() { closeModal('errorOverlay'); }
 
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href').includes(current)) {
-                        link.classList.add('active');
-                    }
-                });
-            });
-
-            // 3. Contact Form Submission (Simulated)
-            const contactForm = document.getElementById('contactForm');
-            const successOverlay = document.getElementById('successOverlay');
-
-            contactForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                // Simulate form submission success
-                successOverlay.style.display = 'flex';
-                contactForm.reset();
-            });
-
-            // 4. Visualizer Bar Animation Start
-            // Apply the animation property with delays in JS to be more robust
-            const bars = document.querySelectorAll('.bar');
-            bars.forEach((bar, index) => {
-                // Apply a unique animation delay
-                bar.style.animation = `barAnimate 1s infinite alternate ${index * 0.1}s`;
-            });
-        });
-
-        // 5. Mobile Menu Toggle Function
+        // --- Sidebar/Mobile Menu Toggle (Provided) ---
         function toggleMenu() {
             const sidebar = document.getElementById('sidebar');
             const menuIcon = document.getElementById('menuIcon');
             sidebar.classList.toggle('open');
-            if (sidebar.classList.contains('open')) {
-                menuIcon.classList.remove('fa-bars');
-                menuIcon.classList.add('fa-times');
+            menuIcon.classList.toggle('fa-bars'); 
+            menuIcon.classList.toggle('fa-times'); 
+        }
+
+        // --- Typing Effect (Provided) ---
+        const texts = [
+            "Full Stack Developer",
+            "AI & ML Enthusiast",
+            "Front-End Developer",
+            "Back-End Developer",
+            "UI/UX Designer",
+            "Problem Solver",
+            "Technology Enthusiast"
+        ];
+        let textIndex = 0;
+        let charIndex = 0;
+        // The element is now targeted by class as per the new Home section structure
+        const typedTextElement = document.querySelector('.typed-text');
+        const typingSpeed = 100; // ms per character
+        const erasingSpeed = 50; // ms per character
+        const newTextDelay = 2000; // ms delay before typing next text
+
+        function type() {
+            if (!typedTextElement) return; 
+            if (charIndex < texts[textIndex].length) {
+                typedTextElement.textContent += texts[textIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(type, typingSpeed);
             } else {
-                menuIcon.classList.remove('fa-times');
-                menuIcon.classList.add('fa-bars');
+                setTimeout(erase, newTextDelay);
             }
         }
-        
-        // Close menu when a navigation link is clicked (for mobile)
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                if (window.innerWidth <= 900) {
-                    const sidebar = document.getElementById('sidebar');
-                    const menuIcon = document.getElementById('menuIcon');
-                    // Check if it's open before trying to close it
-                    if (sidebar.classList.contains('open')) {
-                        toggleMenu();
-                    }
+
+        function erase() {
+            if (!typedTextElement) return;
+            if (charIndex > 0) {
+                typedTextElement.textContent = texts[textIndex].substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(erase, erasingSpeed);
+            } else {
+                textIndex++;
+                if (textIndex >= texts.length) {
+                    textIndex = 0;
                 }
+                setTimeout(type, typingSpeed + 500);
+            }
+        }
+
+        // --- Home Visual Animation (Provided, extended) ---
+        const bars = document.querySelectorAll('.bar');
+        const photoContainer = document.getElementById('photo-container');
+        const skillOrbitContainer = document.getElementById('skill-orbit-container');
+        let homeAnimationRun = false; 
+
+        function runBarAnimation() {
+            bars.forEach(bar => {
+                const heightPercentage = bar.getAttribute('data-height');
+                bar.style.height = '0%'; 
+                setTimeout(() => {
+                    bar.style.height = `${heightPercentage}%`;
+                }, Math.random() * 500 + 100); 
+            });
+        }
+
+        function resetAnimation(element, animationName) {
+            // Restart CSS animation trick
+            element.style.animation = 'none';
+            element.offsetHeight; 
+            element.style.animation = animationName;
+        }
+
+        function runVisualAnimation() {
+            if (photoContainer) resetAnimation(photoContainer, 'photoFlyIn 1.5s ease-out forwards 0.8s');
+            if (skillOrbitContainer) resetAnimation(skillOrbitContainer, 'orbitFlyIn 1.5s ease-out forwards, spin 20s linear infinite');
+            runBarAnimation();
+            homeAnimationRun = true;
+        }
+
+
+        // --- Scroll/Hash Listener to Re-trigger Animation (Provided) ---
+        function checkHomeSection() {
+            const homeSection = document.getElementById('home');
+            if (!homeSection) return;
+
+            const scrollThreshold = homeSection.offsetHeight * 0.5; // Trigger when half of the home section is visible
+            const currentScroll = window.scrollY || document.documentElement.scrollTop;
+
+            if (currentScroll < scrollThreshold || window.location.hash === '#home') {
+                if (!homeAnimationRun) {
+                    // Re-run bar animation if scrolling back to home
+                    runBarAnimation(); 
+                }
+            } else {
+                homeAnimationRun = false;
+            }
+        }
+
+        // --- Contact Form Logic with EmailJS (Provided, but fixed alert()) ---
+        function handleFormSubmit(event) {
+            event.preventDefault(); 
+            const form = document.getElementById('contactForm');
+            const formButton = form.querySelector('.btn');
+            
+            // NOTE: These are the EmailJS Service/Template IDs from your original code.
+            const serviceID = 'service_ke1z42e'; 
+            const templateID = 'template_q7o84ct'; 
+
+            if (!form.checkValidity()) { form.reportValidity(); return; }
+
+            formButton.textContent = 'Sending...';
+            formButton.disabled = true;
+
+            emailjs.sendForm(serviceID, templateID, form)
+                .then(() => {
+                    form.reset(); 
+                    showSuccessOverlay(); 
+                })
+                .catch((err) => {
+                    // REPLACED alert() with custom error modal
+                    console.error("EmailJS Error:", err);
+                    const errMsg = `Failed to send the message. Status: ${err.status || 'Unknown'}. Please verify EmailJS configuration.`;
+                    showErrorOverlay(errMsg);
+                })
+                .finally(() => {
+                    formButton.textContent = 'Send Message';
+                    formButton.disabled = false;
+                });
+        }
+
+        // --- Active Link Tracking and Initialization (Provided) ---
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        function updateActiveLink() {
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                // Use a larger offset for better link switching
+                if (window.scrollY >= sectionTop - window.innerHeight * 0.5) { 
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.href.includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Initialize EmailJS with your Public Key
+            (function () {
+                // Ensure the public key is provided for EmailJS to work
+                emailjs.init("vdZC4c4_myQ5nnRme"); 
+            })();
+            
+            // Start the animations and typing effect
+            setTimeout(type, newTextDelay); 
+            runVisualAnimation();
+
+            // Event listeners
+            window.addEventListener('scroll', updateActiveLink);
+            window.addEventListener('scroll', checkHomeSection); 
+            window.addEventListener('hashchange', checkHomeSection); 
+            
+            updateActiveLink(); 
+
+            // Close mobile menu on link click
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    // Check if window width is for mobile (less than or equal to 900px, matching CSS breakpoint)
+                    if (window.innerWidth <= 900) { toggleMenu(); }
+                });
             });
         });
     </script>
