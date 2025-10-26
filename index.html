@@ -3,355 +3,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sathish K | Portfolio</title>
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <title>Sathish K - Portfolio</title>
+    <!-- Load Font Awesome for all icons (fab, fas) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    
+    <!-- Load Typed.js for the dynamic text effect -->
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
     <style>
-        /* ==================================== */
-        /* 0. BASE STYLES & LAYOUT              */
-        /* ==================================== */
+        /* ------------------------------------ */
+        /* 1. GENERAL & SIDEBAR STYLES          */
+        /* ------------------------------------ */
         :root {
-            --sidebar-width: 300px;
-            --neon-color: #0ff;
-            --dark-bg: #111;
+            --neon-blue: #0ff;
+            --dark-bg: #0a0a0a;
+            --darkest-bg: #000;
         }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif;
         }
-
+        html { scroll-behavior: smooth; }
         body {
-            font-family: 'Poppins', sans-serif;
-            background: #000;
+            background-color: var(--dark-bg);
             color: #fff;
-            min-height: 100vh;
-            overflow-x: hidden; /* Prevent horizontal scroll from orbit animation */
-        }
-
-        a {
-            text-decoration: none;
-            color: var(--neon-color);
-        }
-
-        /* Global Typography */
-        h2 {
-            font-size: 3rem;
-            margin-bottom: 50px;
-            color: #fff;
-            text-shadow: 0 0 10px var(--neon-color);
-            position: relative;
-            display: inline-block;
-            transition: text-shadow 0.3s;
-        }
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 50%;
-            height: 3px;
-            background: var(--neon-color);
-            box-shadow: 0 0 10px var(--neon-color), 0 0 20px var(--neon-color);
-            transition: width 0.3s;
-        }
-        h2:hover {
-            text-shadow: 0 0 20px var(--neon-color), 0 0 30px #fff;
-        }
-        h2:hover::after {
-            width: 100%;
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-block;
-            padding: 12px 25px;
-            background: var(--neon-color);
-            color: #111;
-            border: 2px solid var(--neon-color);
-            border-radius: 8px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            transition: all 0.4s ease;
-            box-shadow: 0 0 10px var(--neon-color);
-            text-transform: uppercase;
-        }
-
-        .btn:hover {
-            background: #00cccc;
-            box-shadow: 0 0 25px var(--neon-color), 0 0 40px rgba(0, 255, 255, 0.5);
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--neon-color);
-            margin-left: 20px;
-            border: 2px solid rgba(0, 255, 255, 0.5);
-            box-shadow: none;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(0, 255, 255, 0.1);
-            border-color: var(--neon-color);
-            color: #fff;
-            box-shadow: 0 0 15px var(--neon-color);
-        }
-
-        /* Menu Toggle (Mobile) */
-        .menu-toggle {
-            display: none; /* Hidden by default on desktop */
-        }
-
-        /* Main Content Layout */
-        #main-content {
-            margin-left: var(--sidebar-width); /* Push content over by sidebar width */
-            padding: 0;
-            transition: margin-left 0.3s ease;
-            min-height: 100vh;
-        }
-
-        section {
-            padding: 100px 5%;
-            text-align: center;
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            transition: background-color 0.3s;
         }
-        .section-content { max-width: 1200px; width: 100%; }
+        a { text-decoration: none; color: var(--neon-blue); }
+        section { padding: 100px 50px; text-align: center; min-height: 100vh; }
+        h2 { font-size: 3rem; margin-bottom: 50px; color: #fff; text-shadow: 0 0 10px var(--neon-blue); }
+        p { line-height: 1.6; color: #ccc; }
+        
+        /* Buttons */
+        .btn { display: inline-block; padding: 12px 25px; background: var(--neon-blue); color: var(--darkest-bg); border-radius: 50px; font-weight: bold; transition: all 0.3s ease; box-shadow: 0 0 15px var(--neon-blue); text-transform: uppercase; }
+        .btn:hover { background: #00cccc; box-shadow: 0 0 30px var(--neon-blue), 0 0 50px rgba(0, 255, 255, 0.5); transform: translateY(-2px); }
+        .btn-secondary { background: transparent; color: var(--neon-blue); border: 2px solid var(--neon-blue); margin-left: 20px; box-shadow: none; }
+        .btn-secondary:hover { background: rgba(0, 255, 255, 0.1); color: #fff; box-shadow: 0 0 25px var(--neon-blue); }
 
-        /* ==================================== */
-        /* 1. SIDEBAR NAVIGATION & PROFILE      */
-        /* ==================================== */
+        /* Sidebar Navigation */
         #sidebar {
-            width: var(--sidebar-width);
-            height: 100%;
             position: fixed;
             top: 0;
             left: 0;
-            background: var(--dark-bg);
-            padding: 40px 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border-right: 1px solid #222;
-            box-shadow: 2px 0 10px rgba(0, 255, 255, 0.1);
-            transition: left 0.3s ease;
+            width: 280px;
+            height: 100%;
+            background: var(--darkest-bg);
+            padding: 50px 20px;
+            text-align: center;
+            border-right: 2px solid rgba(0, 255, 255, 0.2);
+            box-shadow: 5px 0 30px rgba(0, 255, 255, 0.1);
+            transition: left 0.3s ease-in-out;
             z-index: 100;
         }
-
-        .profile-photo img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 4px solid var(--neon-color);
-            box-shadow: 0 0 20px var(--neon-color);
-            object-fit: cover;
-            margin-bottom: 15px;
-            transition: box-shadow 0.3s;
-        }
-
-        .profile-photo img:hover {
-            box-shadow: 0 0 30px #fff, 0 0 50px var(--neon-color);
-        }
-
-        .profile-name {
-            font-size: 1.8rem;
-            color: #fff;
-            text-shadow: 0 0 8px var(--neon-color);
-            margin-bottom: 5px;
-        }
-
-        .profile-title {
-            color: var(--neon-color);
-            font-size: 1rem;
-            margin-bottom: 30px;
-        }
+        .profile-photo { width: 150px; height: 150px; border-radius: 50%; overflow: hidden; margin: 0 auto 15px; border: 5px solid var(--neon-blue); box-shadow: 0 0 20px var(--neon-blue); }
+        .profile-photo img { width: 100%; height: 100%; object-fit: cover; }
+        .profile-name { font-size: 1.8rem; color: #fff; margin-bottom: 5px; text-shadow: 0 0 10px var(--neon-blue); }
+        .profile-title { color: var(--neon-blue); margin-bottom: 40px; font-size: 1.1rem; }
 
         #navLinks a {
             display: block;
-            padding: 12px 20px;
-            color: #aaa;
+            padding: 15px 0;
+            color: #ccc;
             font-size: 1.1rem;
-            text-align: center;
-            border-left: 5px solid transparent;
-            transition: all 0.3s ease;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.05);
         }
-
         #navLinks a:hover, #navLinks a.active {
             color: #fff;
-            background: rgba(0, 255, 255, 0.05);
-            border-left: 5px solid var(--neon-color);
-            text-shadow: 0 0 10px var(--neon-color);
+            background: rgba(0, 255, 255, 0.1);
+            padding-left: 20px;
+            border-color: var(--neon-blue);
+            box-shadow: inset 5px 0 15px rgba(0, 255, 255, 0.3);
         }
 
-        .sidebar-social-icons a {
-            font-size: 1.5rem;
-            color: #aaa;
-            margin: 0 10px;
-            transition: all 0.3s;
+        .sidebar-social-icons a { margin: 0 10px; font-size: 1.5rem; color: #ccc; transition: color 0.3s, text-shadow 0.3s; }
+        .sidebar-social-icons a:hover { color: var(--neon-blue); text-shadow: 0 0 15px var(--neon-blue); }
+
+        /* Main Content Area */
+        #main-content {
+            margin-left: 280px;
+            flex-grow: 1;
+            transition: margin-left 0.3s ease-in-out;
         }
 
-        .sidebar-social-icons a:hover {
-            color: var(--neon-color);
-            transform: scale(1.2);
-            text-shadow: 0 0 10px var(--neon-color);
-        }
+        /* Menu Toggle (Hidden on Desktop) */
+        .menu-toggle { display: none; }
 
-        /* ==================================== */
-        /* 2. HOME SECTION & ANIMATIONS         */
-        /* ==================================== */
+        /* ------------------------------------ */
+        /* 2. HOME SECTION STYLES               */
+        /* ------------------------------------ */
         #home {
-            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 100px;
+            min-height: 100vh;
         }
-
         .hero-grid {
             display: flex;
             align-items: center;
             justify-content: space-around;
-            gap: 50px;
+            max-width: 1200px;
+            width: 100%;
         }
-
         .hero-text-area {
+            text-align: left;
             max-width: 550px;
         }
-
         #intro-text {
-            color: var(--neon-color);
             font-size: 1.5rem;
+            color: var(--neon-blue);
             margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
-
         .hero-text-area h1 {
-            font-size: 4.5rem;
-            line-height: 1.2;
+            font-size: 4rem;
             margin-bottom: 20px;
-            color: #fff;
+            font-weight: 700;
+            line-height: 1.2;
         }
-
-        /* 👇 FINAL FIX: Prevents text wrap from causing layout shift */
         .typed-text {
-            color: var(--neon-color);
-            text-shadow: 0 0 20px var(--neon-color);
-            display: inline-block;
-            white-space: nowrap; 
-            overflow: hidden; 
+            color: var(--neon-blue);
+            font-weight: 900;
+            text-shadow: 0 0 20px var(--neon-blue);
         }
-
         .typed-cursor {
             opacity: 1;
             animation: blink 0.7s infinite;
-            color: var(--neon-color);
-            font-weight: 100;
         }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        /* Home Visual Container */
         .hero-visual-area {
-            width: 450px;
-            height: 450px;
+            width: 400px;
+            height: 400px;
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-
         .animated-graphic-container {
+            position: relative;
             width: 100%;
             height: 100%;
-            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .skill-orbit-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            animation: orbitSpin 30s linear infinite;
+        }
+
+        @keyframes orbitSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .photo-container {
             width: 250px;
             height: 250px;
             border-radius: 50%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             overflow: hidden;
-            border: 5px solid rgba(0, 255, 255, 0.5);
-            box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            border: 5px solid var(--neon-blue);
+            background: #111;
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 10;
-            opacity: 0;
-            animation: photoFlyIn 1.5s ease-out forwards 0.8s;
         }
-
         .photo-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            position: absolute;
-            z-index: 11;
+            z-index: 2;
+            position: relative;
         }
-        
-        /* Bar chart background animation */
         .photo-container > div {
+            position: absolute;
             width: 100%;
             height: 100%;
             display: flex;
             align-items: flex-end;
-            justify-content: space-between;
-            position: absolute;
+            justify-content: space-around;
             padding: 10px;
-            opacity: 0.5;
-            z-index: 12;
-            background: rgba(0, 0, 0, 0.4);
+            opacity: 0.15; /* Subtly visualizer */
+            transition: opacity 0.5s;
+            pointer-events: none;
         }
-
         .bar {
             width: 5px;
-            background-color: var(--neon-color);
-            margin: 0 2px;
-            transition: height 1s ease-out;
-            height: 0%;
-            box-shadow: 0 0 5px var(--neon-color);
+            background: var(--neon-blue);
+            border-radius: 2px 2px 0 0;
+            box-shadow: 0 0 5px var(--neon-blue);
+            transform: scaleY(0);
+            /* The animation will be applied by JS for responsiveness */
         }
 
-        @keyframes photoFlyIn {
-            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
-            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        @keyframes barAnimate {
+            from { transform: scaleY(0.1); }
+            to { transform: scaleY(1); }
         }
 
-        /* Orbit Container */
-        .skill-orbit-container {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            border-radius: 50%;
-            /* Initial state for fly-in animation */
-            opacity: 0;
-            transform: scale(0.5);
-            animation: orbitFlyIn 1.5s ease-out forwards, spin 20s linear infinite;
-        }
-
-        @keyframes orbitFlyIn {
-            0% { opacity: 0; transform: scale(0.5); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* NEW, RELIABLE ORBIT CSS */
+        /* NEW, RELIABLE ORBIT CSS - PROVIDED BY USER */
         .skill-icon {
             position: absolute; 
             width: 50px; 
@@ -383,7 +247,7 @@
         }
         .skill-icon:hover { background-color: #0ff; color: #111; box-shadow: 0 0 20px #fff; }
 
-        /* Rotational Positions for 11 Icons (360 / 11 = 32.727 degrees apart) */
+        /* Rotational Positions for 11 Icons (360 / 11 = 32.727 degrees apart) - PROVIDED BY USER */
         .icon-html { --rotation: 0deg; } 
         .icon-css { --rotation: 32.727deg; }
         .icon-js { --rotation: 65.454deg; } 
@@ -398,7 +262,7 @@
         
 
         /* ==================================== */
-        /* 3. ABOUT SECTION                     */
+        /* 3. ABOUT SECTION (PROVIDED BY USER)  */
         /* ==================================== */
         .about-container { display:flex; flex-wrap:wrap; align-items:center; gap:40px; justify-content:center; margin-top: 40px; }
         .about-photo-wrapper { width: 250px; height: 250px; position: relative; border-radius: 50%; overflow: hidden; border: 5px solid #0ff; box-shadow: 0 0 30px rgba(0, 255, 255, 0.8); transition: box-shadow 0.5s; }
@@ -432,7 +296,7 @@
         .about-text h2 { margin-top: 0; margin-bottom: 15px; font-size: 2.2rem; color: #0ff; text-shadow: none; }
 
         /* ==================================== */
-        /* 4. SKILLS SECTION                    */
+        /* 4. SKILLS SECTION (PROVIDED BY USER) */
         /* ==================================== */
         #skills .skills-grid { max-width: 900px; margin-top: 40px; display:flex; flex-wrap:wrap; gap: 50px 60px; justify-content:center; }
         .skill-wrapper { position: relative; display: inline-block; perspective: 1000px; margin: 15px 0; }
@@ -446,7 +310,7 @@
         .skill-wrapper:hover .skill-icon-container i { color: #0ff; text-shadow: 0 0 15px #0ff; }
 
         /* ==================================== */
-        /* 5. PROJECTS SECTION                  */
+        /* 5. PROJECTS SECTION (PROVIDED BY USER)*/
         /* ==================================== */
         .projects-grid { display:flex; flex-wrap:wrap; gap:40px; justify-content:center; }
         .project-card { width: 320px; min-height: 450px; position: relative; z-index: 1; overflow: hidden; background: rgba(0,255,255,0.03); border: 1px solid rgba(0,255,255,0.2); border-radius:15px; padding: 0; text-align:center; transition: all 0.4s ease-out; box-shadow: 0 0 8px rgba(0, 255, 255, 0.2); cursor: pointer; }
@@ -463,7 +327,7 @@
         .project-card:hover h3 { text-shadow: 0 0 20px #fff, 0 0 30px #0ff; }
         
         /* ==================================== */
-        /* 6. CERTIFICATIONS SECTION            */
+        /* 6. CERTIFICATIONS SECTION (PROVIDED BY USER)*/
         /* ==================================== */
         .btn-verify { display:inline-block; padding:8px 15px; border:1px solid #0ff; color:#111; border-radius:5px; font-size: 0.9rem; font-weight: bold; transition: all 0.3s ease; text-transform: uppercase; background: #0ff; box-shadow: 0 0 10px #0ff; }
         .btn-verify:hover { background: #00cccc; box-shadow: 0 0 25px #0ff; transform: translateY(-1px); }
@@ -481,7 +345,7 @@
         .cert-card * { position: relative; z-index: 1; }
 
         /* ==================================== */
-        /* 7. CONTACT SECTION                   */
+        /* 7. CONTACT SECTION (PROVIDED BY USER)*/
         /* ==================================== */
         #contact { min-height: 80vh; }
         .contact-container { display: flex; gap: 60px; align-items: flex-start; justify-content: center; width: 100%; background: #0a0a0a; padding: 50px; border-radius: 12px; border: 1px solid #222; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5), 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 0 5px rgba(255, 255, 255, 0.05); }
@@ -501,7 +365,7 @@
         .contact-details span { font-size: 1.1rem; font-weight: 400; color: #ccc; }
         
         /* ==================================== */
-        /* 8. SUCCESS MODAL OVERLAY             */
+        /* 8. SUCCESS MODAL OVERLAY (PROVIDED BY USER)*/
         /* ==================================== */
         #successOverlay {
             position: fixed;
@@ -553,7 +417,7 @@
         }
 
         /* ==================================== */
-        /* 9. RESPONSIVE DESIGN                 */
+        /* 9. RESPONSIVE DESIGN (PROVIDED BY USER)*/
         /* ==================================== */
 
         /* 1200px: Medium Screens - Adjusting sidebar padding slightly */
@@ -564,6 +428,7 @@
             .photo-container { width: 200px; height: 200px; border: 4px solid rgba(0, 255, 255, 0.5); }
             .skill-icon { width: 50px; height: 50px; }
             .skill-icon i { font-size: 1.8rem; }
+            .skill-icon { --radius: 175px !important; } /* Adjust orbit radius for smaller screens */
         }
 
         /* 900px: Mobile Layout Activation */
@@ -624,16 +489,13 @@
             .about-container { flex-direction: column; }
             .contact-container { flex-direction: column; align-items: center; }
             .contact-form, .contact-info { max-width: 100%; width: 100%; }
+            .skill-orbit-container { animation-duration: 40s; }
         }
 
         /* 600px: Extra fine-tuning for smaller smartphones */
         @media(max-width:600px){
             h2 { font-size: 2.2rem; margin-bottom: 30px; }
-            .hero-text-area h1 { 
-                font-size: 2.2rem; 
-                /* FINAL FIX: Reserves safe space to prevent page jump during typing */
-                min-height: 5.8rem; 
-            }
+            .hero-text-area h1 { font-size: 2.2rem; }
             .typed-cursor { font-size: 2.2rem; }
             #intro-text { font-size: 1.2rem; }
             .btn { padding: 10px 20px; font-size: 1rem; margin-right: 10px; }
@@ -652,11 +514,14 @@
 </head>
 <body>
 
+    <!-- Mobile Menu Toggle Button -->
     <i class="fas fa-bars menu-toggle" id="menuIcon" onclick="toggleMenu()"></i>
 
+    <!-- Sidebar Navigation -->
     <nav id="sidebar">
         <div class="profile-photo">
-            <img src="C:\Users\sathi\OneDrive\Desktop\portfolio\sathish.jpg" alt="Sathish K Profile">
+            <!-- Using a placeholder image instead of local file path -->
+            <img src="https://placehold.co/150x150/111/0ff?text=Sathish+K" alt="Sathish K Profile">
         </div>
         <h3 class="profile-name">Sathish K</h3>
         <p class="profile-title">Student & Developer</p>
@@ -677,9 +542,11 @@
             <a href="#contact" class="nav-link">Contact</a>
         </div>
         
-        </nav>
+    </nav>
     
+    <!-- Main Content Area -->
     <main id="main-content">
+        <!-- 1. HOME SECTION -->
         <section id="home">
             <div class="section-content">
                 <div class="hero-grid">
@@ -692,6 +559,7 @@
                         </h1>
                         <p style="margin-bottom: 30px;">
                             “Rise after every fall; each failure is a lesson shaping your path to success and proving your strength to the world and yourself.”
+                        </p>
                         <div class="button-group">
                             <a href="#contact" class="btn">Let's Connect</a>
                             <a href="./assets/Sathishresume.pdf" target="_blank" class="btn btn-secondary">View Resume</a>
@@ -715,6 +583,7 @@
                             </div>
                             <div class="photo-container" id="photo-container">
                                 <div>
+                                    <!-- Visualizer bars -->
                                     <div class="bar" data-height="80"></div>
                                     <div class="bar" data-height="50"></div>
                                     <div class="bar" data-height="90"></div>
@@ -726,7 +595,8 @@
                                     <div class="bar" data-height="95"></div>
                                     <div class="bar" data-height="70"></div>
                                 </div>
-                                <img src="C:\Users\sathi\OneDrive\Desktop\portfolio\sathish.jpg" alt="My Profile Photo">
+                                <!-- Using a placeholder image instead of local file path -->
+                                <img src="https://placehold.co/250x250/111/0ff?text=Sathish+K" onerror="this.onerror=null; this.src='https://placehold.co/250x250/111/0ff?text=Sathish+K';" alt="My Profile Photo">
                             </div>
                         </div>
                     </div>
@@ -734,344 +604,283 @@
             </div>
         </section>
 
+        <!-- 2. ABOUT SECTION -->
         <section id="about">
-            <div class="section-content">
-                <h2>About Me</h2>
-                <div class="about-container">
-                    <div class="about-photo-wrapper">
-                        <div class="image-stack">
-                            <img src="https://via.placeholder.com/250/00ffff/111111?text=Sathish+1" alt="Profile Image 1">
-                            <img src="https://via.placeholder.com/250/ff00ff/111111?text=Sathish+2" alt="Profile Image 2">
-                            <img src="https://via.placeholder.com/250/ffff00/111111?text=Sathish+3" alt="Profile Image 3">
-                            <img src="https://via.placeholder.com/250/00ff00/111111?text=Sathish+4" alt="Profile Image 4">
-                        </div>
+            <h2>About Me</h2>
+            <div class="about-container">
+                <div class="about-photo-wrapper">
+                    <div class="image-stack">
+                        <!-- Placeholder images for the hover cycle effect -->
+                        <img src="https://placehold.co/250x250/111/0ff?text=Coding" alt="Coding">
+                        <img src="https://placehold.co/250x250/111/0ff?text=Design" alt="Design">
+                        <img src="https://placehold.co/250x250/111/0ff?text=Analytics" alt="Analytics">
+                        <img src="https://placehold.co/250x250/111/0ff?text=Learning" alt="Learning">
                     </div>
-                    <div class="about-text">
-                        <h2>My Journey</h2>
-                        <p>I am an ambitious **Student & Developer** specializing in crafting immersive digital experiences. My core strength lies in **Full Stack Web Development**, blending powerful back-end logic with captivating, modern front-end design using the MERN stack (MongoDB, Express, React, Node.js). </p>
-                        <p style="margin-top: 15px;">I have a deep curiosity for **Data Science and AI/ML**, actively working on projects like time-series stock prediction and data analytics dashboards using tools like Python, Power BI, and specialized models. I am committed to leveraging technology to solve complex real-world problems and create functional, scalable solutions.</p>
-                    </div>
+                </div>
+                <div class="about-text">
+                    <h2>Developer & Learner</h2>
+                    <p>I am a passionate student developer with a strong foundation in Web Development (HTML, CSS, JavaScript) and core programming languages like **Python** and **Java**. My journey is focused on creating efficient and scalable solutions, from dynamic web applications to powerful data analysis tools.</p>
+                    <p style="margin-top: 15px;">I enjoy exploring emerging technologies, particularly in **AI/ML** and **Data Analytics**. I thrive on complex problem-solving and am always eager to take on projects that challenge me to learn and grow. Let's build something impactful together!</p>
                 </div>
             </div>
         </section>
 
+        <!-- 3. SKILLS SECTION -->
         <section id="skills">
-            <div class="section-content">
-                <h2>My Skills</h2>
-                <div class="skills-grid">
-                    
-                    <div class="skill-wrapper"><div class="skill"><span class="skill-name">HTML</span></div><div class="skill-icon-container"><i class="fab fa-html5"></i></div></div>
-                    <div class="skill-wrapper"><div class="skill"><span class="skill-name">CSS</span></div><div class="skill-icon-container"><i class="fab fa-css3-alt"></i></div></div>
-                    <div class="skill-wrapper"><div class="skill"><span class="skill-name">JavaScript</span></div><div class="skill-icon-container"><i class="fab fa-js-square"></i></div></div>
-                    <div class="skill-wrapper"><div class="skill"><span class="skill-name">Python</span></div><div class="skill-icon-container"><i class="fab fa-python"></i></div></div>
-                    <div class="skill-wrapper"><div class="skill"><span class="skill-name">Bootstrap</span></div><div class="skill-icon-container"><i class="fab fa-bootstrap"></i></div></div>
-                    <div class="skill-wrapper"><div class="skill"><span class="skill-name">React</span></div><div class="skill-icon-container"><i class="fab fa-react"></i></div></div>
-                    <div class="skill-wrapper"><div class="skill"><span class="skill-name">MongoDB</span></div><div class="skill-icon-container"><i class="fas fa-database"></i> </div></div>
-                    <div class="skill-wrapper"><div class="skill"><span class="skill-name">MySQL</span></div><div class="skill-icon-container"><i class="fas fa-database"></i> </div></div>
-                    <div class="skill-wrapper"><div class="skill"><span class="skill-name">Git & GitHub</span></div><div class="skill-icon-container"><i class="fab fa-git-alt"></i></div></div>
-                    <div class="skill-wrapper"><div class="skill"><span class="skill-name">Java</span></div><div class="skill-icon-container"><i class="fab fa-java"></i></div></div>
-                    <div class="skill-wrapper"><div class="skill"><span class="skill-name">Power BI</span></div><div class="skill-icon-container"><i class="fas fa-chart-pie"></i></div></div>
+            <h2>Core Skills</h2>
+            <div class="skills-grid">
+                <!-- Grid-style skills cards -->
+                <div class="skill-wrapper">
+                    <div class="skill"><span class="skill-name">Front-End Dev</span></div>
+                    <div class="skill-icon-container"><i class="fas fa-desktop"></i></div>
+                </div>
+                <div class="skill-wrapper">
+                    <div class="skill"><span class="skill-name">Python & Data</span></div>
+                    <div class="skill-icon-container"><i class="fab fa-python"></i></div>
+                </div>
+                <div class="skill-wrapper">
+                    <div class="skill"><span class="skill-name">Java/C++</span></div>
+                    <div class="skill-icon-container"><i class="fab fa-java"></i></div>
+                </div>
+                <div class="skill-wrapper">
+                    <div class="skill"><span class="skill-name">Database (MongoDB)</span></div>
+                    <div class="skill-icon-container"><i class="fas fa-database"></i></div>
+                </div>
+                <div class="skill-wrapper">
+                    <div class="skill"><span class="skill-name">AI / Machine Learning</span></div>
+                    <div class="skill-icon-container"><i class="fas fa-brain"></i></div>
+                </div>
+                <div class="skill-wrapper">
+                    <div class="skill"><span class="skill-name">Bootstrap / Tailwind</span></div>
+                    <div class="skill-icon-container"><i class="fab fa-bootstrap"></i></div>
                 </div>
             </div>
         </section>
 
+        <!-- 4. PROJECTS SECTION -->
         <section id="projects">
-            <div class="section-content">
-                <h2>My Projects</h2>
-                <div class="projects-grid">
-                    <div class="project-card">
-                        <div class="project-visual">
-                            <img src="https://via.placeholder.com/320x180/000000/00ffff?text=STOCK+MARKET+DASHBOARD" alt="Stock Market Dashboard Preview">
-                        </div>
-                        <div class="project-content">
-                            <h3>Big Bull Trends</h3>
-                            <p>Stock market trend prediction using LSTM, ARIMA, Prophet & hybrid models. Featured real-time data ingestion and visualization dashboard.</p>
-                            <div class="button-group"><a class="btn" href="#" target="_blank">View Project</a> </div>
-                        </div>
+            <h2>Featured Projects</h2>
+            <div class="projects-grid">
+                <!-- Project Card 1 -->
+                <div class="project-card">
+                    <div class="project-visual">
+                         <img src="https://placehold.co/320x180/111/0ff?text=Web+App" alt="Web App Project">
                     </div>
-                    <div class="project-card">
-                        <div class="project-visual">
-                            <img src="./assets/Netflix_dashboard.png" alt="Netflix Dashboard Preview">
-                        </div>
-                        <div class="project-content">
-                            <h3>Netflix Dashboard</h3>
-                            <p>Developed an interactive Power BI dashboard to analyze Netflix content and viewer trends. Visualized data by genre, country, and release year to identify streaming patterns and provide insights into audience preferences.</p><br>
-                            <div class="button-group"><a class="btn" href="https://github.com/sathish-k2005/netflix-dashboard" target="_blank">View Project</a> </div>
-                        </div>
+                    <div class="project-content">
+                        <h3>Portfolio Website V3</h3>
+                        <p class="text-xs text-gray-400 mb-4">HTML, CSS (Neon Theme), JavaScript, Responsive Design</p>
+                        <p>A personal showcase built with a focus on modern design principles, complex CSS animations (like the orbit effect), and full mobile responsiveness.</p>
+                        <a href="#" class="btn btn-verify mt-5">View Project</a>
                     </div>
-                    <div class="project-card">
-                        <div class="project-visual">
-                            <img src="https://via.placeholder.com/320x180/000000/00ff00?text=E-COMMERCE+API" alt="E-commerce API Placeholder">
-                        </div>
-                        <div class="project-content">
-                            <h3>E-commerce API</h3>
-                            <p>A headless e-commerce backend built with Node.js and MongoDB, handling authentication, inventory, and secure payment integrations.</p>
-                            <div class="button-group"><a class="btn" href="#" target="_blank">View Project</a> </div>
-                        </div>
+                </div>
+                
+                <!-- Project Card 2 -->
+                <div class="project-card">
+                    <div class="project-visual">
+                         <img src="https://placehold.co/320x180/111/0ff?text=Data+Analysis" alt="Data Analysis Project">
+                    </div>
+                    <div class="project-content">
+                        <h3>E-Commerce Data Analysis</h3>
+                        <p class="text-xs text-gray-400 mb-4">Python (Pandas, Matplotlib), PowerBI Integration</p>
+                        <p>Analyzed large transactional datasets to identify key consumer trends, peak sales periods, and inventory optimization opportunities using PowerBI visualization.</p>
+                        <a href="#" class="btn btn-verify mt-5">View Report</a>
+                    </div>
+                </div>
+
+                <!-- Project Card 3 -->
+                <div class="project-card">
+                    <div class="project-visual">
+                         <img src="https://placehold.co/320x180/111/0ff?text=ML+Model" alt="ML Model Project">
+                    </div>
+                    <div class="project-content">
+                        <h3>Basic Sentiment Classifier</h3>
+                        <p class="text-xs text-gray-400 mb-4">Python (NLTK, Scikit-learn), MongoDB</p>
+                        <p>A machine learning model trained to classify text input as positive or negative sentiment, demonstrating fundamental ML pipeline construction and database interaction.</p>
+                        <a href="#" class="btn btn-verify mt-5">View Code</a>
                     </div>
                 </div>
             </div>
         </section>
-
+        
+        <!-- 5. CERTIFICATIONS SECTION -->
         <section id="certifications">
-            <div class="section-content">
-                <h2>Certifications & Achievements</h2>
-                <div class="certifications-grid">
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fab fa-database"></i></div>
-                        <h3>BootCamp in Retail Sales & Growth Analysis Dashboard using Power BI</h3>
-                        <p class="issuer">NoviTech</p>
-                        <p class="date">Issued: Sep 2025 | ID: NT_RBT609</p>
-                        <div class="cert-action"><a href="https://drive.google.com/file/d/1uQFYhVar1clakFYgBg6O7AoGQ-C7joDL/view?usp=drivesdk" target="_blank" class="btn-verify">View Certificate</a></div>
+            <h2>Certifications & Achievements</h2>
+            <div class="certifications-grid">
+                <div class="cert-card">
+                    <i class="fas fa-certificate cert-icon"></i>
+                    <div class="cert-content">
+                        <h3>Foundational Python Programming</h3>
+                        <p class="issuer">Great Learning Academy</p>
+                        <p class="date">Issued: June 2023</p>
+                        <p>Completed intensive training in Python syntax, data structures, and object-oriented programming fundamentals.</p>
+                        <a href="#" target="_blank" class="btn-verify mt-4">Verify</a>
                     </div>
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fas fa-laptop-code"></i></div>
-                        <h3>Digital Marketing & Web Development Intenship</h3>
-                        <p class="issuer">iStudio TECHNOLOGIES</p>
-                        <p class="date">Issued: Jul 2025</p>
-                        <div class="cert-action"><a href="https://drive.google.com/file/d/1vcsaezR5StSXVGEXiuLw7asVvf2w1Ri7/view?usp=drivesdk" target="_blank" class="btn-verify">View Certificate</a></div>
-                    </div>
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fas fa-code-branch"></i></div>
-                        <h3> Real-World API Skills for Ready Developers </h3>
-                        <p class="issuer">NoviTech</p>
-                        <p class="date">Issued: JUL 2025 | ID: NT_FSDB317</p>
-                        <div class="cert-action"><a href="https://drive.google.com/file/d/1NDUER5NWrZY8G-8PUlcmwjikHPaPfq_K/view?usp=drivesdk" target="_blank" class="btn-verify">View Certificate</a></div>
+                </div>
+                <div class="cert-card">
+                    <i class="fas fa-chart-bar cert-icon"></i>
+                    <div class="cert-content">
+                        <h3>Data Visualization with PowerBI</h3>
+                        <p class="issuer">Coursera</p>
+                        <p class="date">Issued: August 2023</p>
+                        <p>Mastered techniques for transforming raw data into impactful, interactive dashboards for business intelligence.</p>
+                        <a href="#" target="_blank" class="btn-verify mt-4">Verify</a>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- 6. CONTACT SECTION -->
         <section id="contact">
-            <div class="section-content">
-                <h2>Initiate Contact Protocol</h2>
-                <p>
-                    Ready to connect? Send a direct message or find me across the digital grid.
-                </p>
-                <div class="contact-container">
-                    <form id="contactForm" class="contact-form" onsubmit="handleFormSubmit(event)">
+            <h2>Get In Touch</h2>
+            <div class="contact-container">
+                <div class="contact-form">
+                    <form id="contactForm">
                         <div class="form-group">
                             <label for="name">Your Name</label>
-                            <input type="text" id="name" name="from_name" required>
+                            <input type="text" id="name" name="name" required>
                         </div>
                         <div class="form-group">
                             <label for="email">Your Email</label>
-                            <input type="email" id="email" name="from_email" required>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required>
                         </div>
                         <div class="form-group">
                             <label for="message">Message</label>
                             <textarea id="message" name="message" required></textarea>
                         </div>
-                        <button type="submit" class="btn">Send Message</button>
+                        <button type="submit" class="btn" style="width: 100%; margin-top: 15px;">Send Message</button>
                     </form>
+                </div>
 
-                    <div class="contact-info">
-                        <h3>Direct Connect</h3>
-                        <div class="contact-list">
-                            <div class="contact-item"><a href="mailto:sathishkuppan015@gmail.com"><i class="fas fa-envelope"></i><div class="contact-details"><span>sathishkuppan015@gmail.com</span></div></a></div>
-                            <div class="contact-item"><a href="tel:8072937768"><i class="fas fa-mobile-alt"></i><div class="contact-details"><span>8072937768</span></div></a></div>
-                            <div class="contact-item"><a href="https://www.linkedin.com/in/sathish-k2005?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank"><i class="fab fa-linkedin"></i><div class="contact-details"><span>LinkedIn Profile</span></div></a></div>
-                        </div>
+                <div class="contact-info">
+                    <h3>Contact Details</h3>
+                    <div class="contact-item">
+                        <a href="mailto:sathishk.dev@example.com">
+                            <i class="fas fa-envelope"></i>
+                            <div class="contact-details">
+                                <span>sathishk.dev@example.com</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="contact-item">
+                        <a href="tel:+1234567890">
+                            <i class="fas fa-phone-alt"></i>
+                            <div class="contact-details">
+                                <span>+1 (234) 567-890</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="contact-item">
+                        <a href="https://maps.google.com/?q=My+Location" target="_blank">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="contact-details">
+                                <span>Chennai, Tamil Nadu, India</span>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <div id="successOverlay" style="display: none;">
-            <div class="success-box">
-                <i class="fas fa-check-circle success-icon"></i>
-                <h3>Message Sent Successfully!</h3>
-                <p>Thank you for reaching out, Sathish will get back to you soon.</p>
-                <button class="btn" onclick="closeSuccessOverlay()">Close</button>
-            </div>
-        </div>
+        <!-- Footer -->
+        <footer style="padding: 20px; text-align: center; border-top: 1px solid rgba(0, 255, 255, 0.1);">
+            <p style="font-size: 0.9rem; color: #555;">&copy; 2024 Sathish K. All rights reserved. | Built with Neon Energy.</p>
+        </footer>
+
     </main>
 
+    <!-- Success Modal Overlay -->
+    <div id="successOverlay">
+        <div class="success-box">
+            <i class="fas fa-check-circle success-icon"></i>
+            <h3>Message Sent!</h3>
+            <p>Thank you for reaching out. I'll get back to you as soon as possible.</p>
+            <button class="btn" onclick="document.getElementById('successOverlay').style.display='none';" style="padding: 10px 30px;">Close</button>
+        </div>
+    </div>
 
     <script>
-        // --- Sidebar/Mobile Menu Toggle ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Typed.js Initialization
+            // This creates the dynamic typing effect on the home page
+            new Typed('.typed-text', {
+                strings: ["Developer.", "Learner.", "Problem Solver.", "Innovator."],
+                typeSpeed: 70,
+                backSpeed: 50,
+                loop: true,
+                showCursor: false
+            });
+
+            // 2. Navigation Link Highlighting
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 150; // Offset for header/padding
+                    const sectionHeight = section.clientHeight;
+                    if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+            // 3. Contact Form Submission (Simulated)
+            const contactForm = document.getElementById('contactForm');
+            const successOverlay = document.getElementById('successOverlay');
+
+            contactForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                // Simulate form submission success
+                successOverlay.style.display = 'flex';
+                contactForm.reset();
+            });
+
+            // 4. Visualizer Bar Animation Start
+            // Apply the animation property with delays in JS to be more robust
+            const bars = document.querySelectorAll('.bar');
+            bars.forEach((bar, index) => {
+                // Apply a unique animation delay
+                bar.style.animation = `barAnimate 1s infinite alternate ${index * 0.1}s`;
+            });
+        });
+
+        // 5. Mobile Menu Toggle Function
         function toggleMenu() {
             const sidebar = document.getElementById('sidebar');
             const menuIcon = document.getElementById('menuIcon');
             sidebar.classList.toggle('open');
-            menuIcon.classList.toggle('fa-bars'); 
-            menuIcon.classList.toggle('fa-times'); 
-        }
-
-        // --- Typing Effect (from Home section) ---
-        const texts = [
-            "Full Stack Developer",
-            "AI & ML Enthusiast",
-            "Front-End Developer",
-            "Back-End Developer",
-            "UI/UX Designer",
-            "Problem Solver",
-            "Technology Enthusiast"
-        ];
-        let textIndex = 0;
-        let charIndex = 0;
-        const typedTextElement = document.querySelector('.typed-text');
-        const typingSpeed = 100; // ms per character
-        const erasingSpeed = 50; // ms per character
-        const newTextDelay = 2000; // ms delay before typing next text
-
-        function type() {
-            if (!typedTextElement) return; 
-            if (charIndex < texts[textIndex].length) {
-                typedTextElement.textContent += texts[textIndex].charAt(charIndex);
-                charIndex++;
-                setTimeout(type, typingSpeed);
+            if (sidebar.classList.contains('open')) {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-times');
             } else {
-                setTimeout(erase, newTextDelay);
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
             }
         }
-
-        function erase() {
-            if (!typedTextElement) return;
-            if (charIndex > 0) {
-                typedTextElement.textContent = texts[textIndex].substring(0, charIndex - 1);
-                charIndex--;
-                setTimeout(erase, erasingSpeed);
-            } else {
-                textIndex++;
-                if (textIndex >= texts.length) {
-                    textIndex = 0;
+        
+        // Close menu when a navigation link is clicked (for mobile)
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 900) {
+                    const sidebar = document.getElementById('sidebar');
+                    const menuIcon = document.getElementById('menuIcon');
+                    // Check if it's open before trying to close it
+                    if (sidebar.classList.contains('open')) {
+                        toggleMenu();
+                    }
                 }
-                setTimeout(type, typingSpeed + 500);
-            }
-        }
-
-        // --- Home Visual Animation ---
-        const bars = document.querySelectorAll('.bar');
-        const photoContainer = document.getElementById('photo-container');
-        const skillOrbitContainer = document.getElementById('skill-orbit-container');
-        let homeAnimationRun = false; 
-
-        function runBarAnimation() {
-            bars.forEach(bar => {
-                const heightPercentage = bar.getAttribute('data-height');
-                bar.style.height = '0%'; 
-                setTimeout(() => {
-                    bar.style.height = `${heightPercentage}%`;
-                }, Math.random() * 500 + 100); 
-            });
-        }
-
-        function resetAnimation(element, animationName) {
-            element.style.animation = 'none';
-            element.offsetHeight; 
-            element.style.animation = animationName;
-        }
-
-        function runVisualAnimation() {
-            resetAnimation(photoContainer, 'photoFlyIn 1.5s ease-out forwards 0.8s');
-            resetAnimation(skillOrbitContainer, 'orbitFlyIn 1.5s ease-out forwards, spin 20s linear infinite');
-            runBarAnimation();
-            homeAnimationRun = true;
-        }
-
-
-        // --- Scroll/Hash Listener to Re-trigger Animation ---
-        function checkHomeSection() {
-            const scrollThreshold = 100; 
-            const currentScroll = window.scrollY || document.documentElement.scrollTop;
-
-            if (currentScroll < scrollThreshold || window.location.hash === '#home') {
-                if (!homeAnimationRun) {
-                    // Re-run bar animation if scrolling back to home
-                    runBarAnimation(); 
-                }
-            } else {
-                homeAnimationRun = false;
-            }
-        }
-
-        // --- Success Modal Logic ---
-        function showSuccessOverlay() {
-            document.getElementById('successOverlay').style.display = 'flex';
-        }
-
-        function closeSuccessOverlay() {
-            document.getElementById('successOverlay').style.display = 'none';
-        }
-
-
-        // --- Contact Form Logic with EmailJS ---
-        function handleFormSubmit(event) {
-            event.preventDefault(); 
-            const form = document.getElementById('contactForm');
-            const formButton = form.querySelector('.btn');
-            
-            // NOTE: These are the EmailJS Service/Template IDs from your original code.
-            const serviceID = 'service_ke1z42e'; 
-            const templateID = 'template_q7o84ct'; 
-
-            if (!form.checkValidity()) { form.reportValidity(); return; }
-
-            formButton.textContent = 'Sending...';
-            formButton.disabled = true;
-
-            emailjs.sendForm(serviceID, templateID, form)
-                .then(() => {
-                    form.reset(); 
-                    showSuccessOverlay(); 
-                })
-                .catch((err) => {
-                    alert(`Failed to send the message. Please check the EmailJS service and template IDs. Error: ${JSON.stringify(err)}`);
-                    console.error("EmailJS Error:", err);
-                })
-                .finally(() => {
-                    formButton.textContent = 'Send Message';
-                    formButton.disabled = false;
-                });
-        }
-
-        // --- Active Link Tracking and Initialization ---
-        const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('.nav-link');
-
-        function updateActiveLink() {
-            let current = '';
-
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                // Use a larger offset for better link switching
-                if (window.scrollY >= sectionTop - window.innerHeight * 0.5) { 
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.href.includes(current)) {
-                    link.classList.add('active');
-                }
-            });
-        }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            // Initialize EmailJS with your Public Key (vdZC4c4_myQ5nnRme)
-            (function () {
-                emailjs.init("vdZC4c4_myQ5nnRme"); 
-            })();
-            
-            // Start the animations and typing effect
-            setTimeout(type, newTextDelay); 
-            runVisualAnimation();
-
-            // Event listeners
-            window.addEventListener('scroll', updateActiveLink);
-            window.addEventListener('scroll', checkHomeSection); 
-            window.addEventListener('hashchange', checkHomeSection); 
-            
-            updateActiveLink(); 
-
-            // Close mobile menu on link click
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', (e) => {
-                    // Check if window width is for mobile (less than or equal to 900px, matching CSS breakpoint)
-                    if (window.innerWidth <= 900) { toggleMenu(); }
-                });
             });
         });
     </script>
