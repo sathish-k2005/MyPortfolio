@@ -3,22 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sathish K - Full Stack Developer | AI/ML Enthusiast</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Sathish K | Portfolio</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
+    
     <style>
         /* ==================================== */
-        /* 1. BASE STYLES & UTILITIES           */
+        /* 0. BASE STYLES & LAYOUT              */
         /* ==================================== */
         :root {
-            --primary-color: #0ff; /* Neon Cyan */
-            --secondary-color: #00cccc;
-            --background-color: #000;
-            --text-color: #fff;
-            --dark-background: #0a0a0a;
-            --sidebar-width: 280px;
+            --sidebar-width: 300px;
+            --neon-color: #0ff;
+            --dark-bg: #111;
         }
 
         * {
@@ -30,87 +27,107 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: var(--background-color);
-            color: var(--text-color);
-            line-height: 1.7;
-            overflow-x: hidden; /* Prevent horizontal scroll */
+            background: #000;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden; /* Prevent horizontal scroll from orbit animation */
         }
 
         a {
             text-decoration: none;
-            color: var(--primary-color);
+            color: var(--neon-color);
         }
 
-        /* General Layout - Correction applied here */
-        #main-content {
-            /* Desktop default: push content to the right of the sidebar */
-            margin-left: var(--sidebar-width);
-            transition: margin-left 0.4s ease;
-        }
-
-        section {
-            min-height: 100vh;
-            padding: 100px 5%;
-            padding-left: 5%; /* Adjusted for main content area padding */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            text-align: center;
-        }
-
-        /* Headings */
-        h1, h2, h3 {
-            font-weight: 700;
-            color: var(--text-color);
-        }
-
+        /* Global Typography */
         h2 {
             font-size: 3rem;
             margin-bottom: 50px;
-            color: var(--primary-color);
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            color: #fff;
+            text-shadow: 0 0 10px var(--neon-color);
+            position: relative;
+            display: inline-block;
+            transition: text-shadow 0.3s;
         }
-        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50%;
+            height: 3px;
+            background: var(--neon-color);
+            box-shadow: 0 0 10px var(--neon-color), 0 0 20px var(--neon-color);
+            transition: width 0.3s;
+        }
+        h2:hover {
+            text-shadow: 0 0 20px var(--neon-color), 0 0 30px #fff;
+        }
+        h2:hover::after {
+            width: 100%;
+        }
+
         /* Buttons */
         .btn {
             display: inline-block;
             padding: 12px 25px;
-            background: var(--primary-color);
+            background: var(--neon-color);
             color: #111;
-            border-radius: 6px;
+            border: 2px solid var(--neon-color);
+            border-radius: 8px;
             font-weight: 600;
-            font-size: 1.1rem;
-            box-shadow: 0 0 15px var(--primary-color), 0 0 30px rgba(0, 255, 255, 0.5);
-            transition: all 0.3s ease;
-            text-transform: uppercase;
             letter-spacing: 0.5px;
-            border: 2px solid transparent;
-            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 10px var(--neon-color);
+            text-transform: uppercase;
         }
 
         .btn:hover {
-            background: var(--secondary-color);
-            box-shadow: 0 0 25px var(--primary-color), 0 0 50px rgba(0, 255, 255, 0.8);
+            background: #00cccc;
+            box-shadow: 0 0 25px var(--neon-color), 0 0 40px rgba(0, 255, 255, 0.5);
             transform: translateY(-2px);
         }
 
         .btn-secondary {
             background: transparent;
-            color: var(--primary-color);
-            border-color: var(--primary-color);
-            box-shadow: none;
+            color: var(--neon-color);
             margin-left: 20px;
+            border: 2px solid rgba(0, 255, 255, 0.5);
+            box-shadow: none;
         }
 
         .btn-secondary:hover {
             background: rgba(0, 255, 255, 0.1);
-            color: var(--text-color);
-            box-shadow: 0 0 20px var(--primary-color);
+            border-color: var(--neon-color);
+            color: #fff;
+            box-shadow: 0 0 15px var(--neon-color);
         }
 
+        /* Menu Toggle (Mobile) */
+        .menu-toggle {
+            display: none; /* Hidden by default on desktop */
+        }
+
+        /* Main Content Layout */
+        #main-content {
+            margin-left: var(--sidebar-width); /* Push content over by sidebar width */
+            padding: 0;
+            transition: margin-left 0.3s ease;
+            min-height: 100vh;
+        }
+
+        section {
+            padding: 100px 5%;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .section-content { max-width: 1200px; width: 100%; }
+
         /* ==================================== */
-        /* 2. SIDEBAR NAVIGATION & HOME SECTION */
+        /* 1. SIDEBAR NAVIGATION & PROFILE      */
         /* ==================================== */
         #sidebar {
             width: var(--sidebar-width);
@@ -128,10 +145,10 @@
             transition: left 0.3s ease;
             z-index: 100;
         }
-        
+
         .profile-photo img {
-           width: 110px;
-            height: 110px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             border: 4px solid var(--neon-color);
             box-shadow: 0 0 20px var(--neon-color);
@@ -140,27 +157,38 @@
             transition: box-shadow 0.3s;
         }
 
-         .profile-photo img:hover {
+        .profile-photo img:hover {
             box-shadow: 0 0 30px #fff, 0 0 50px var(--neon-color);
         }
 
         .profile-name {
             font-size: 1.8rem;
-            color: var(--text-color);
+            color: #fff;
+            text-shadow: 0 0 8px var(--neon-color);
             margin-bottom: 5px;
         }
 
         .profile-title {
-            font-size: 0.9rem;
-            color: #0ff;
+            color: var(--neon-color);
+            font-size: 1rem;
             margin-bottom: 30px;
         }
 
-        /* FIX 1: Sidebar Social Icons Style */
-        .sidebar-social-icons {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 30px;
+        #navLinks a {
+            display: block;
+            padding: 12px 20px;
+            color: #aaa;
+            font-size: 1.1rem;
+            text-align: center;
+            border-left: 5px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        #navLinks a:hover, #navLinks a.active {
+            color: #fff;
+            background: rgba(0, 255, 255, 0.05);
+            border-left: 5px solid var(--neon-color);
+            text-shadow: 0 0 10px var(--neon-color);
         }
 
         .sidebar-social-icons a {
@@ -171,97 +199,52 @@
         }
 
         .sidebar-social-icons a:hover {
-             color: var(--neon-color);
+            color: var(--neon-color);
             transform: scale(1.2);
             text-shadow: 0 0 10px var(--neon-color);
         }
 
-        /* Navigation Links */
-        #navLinks {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            margin-bottom: 40px;
-        }
-
-        .nav-link {
-            width: 100%;
-            text-align: left;
-            padding: 15px 25px;
-            color: #ccc;
-            font-size: 1.2rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            position: relative;
-            transition: color 0.3s, background 0.3s, padding-left 0.3s ease;
-        }
-
-        .nav-link:hover {
-            color: var(--primary-color);
-            background: rgba(0, 255, 255, 0.05);
-            border-left: 3px solid var(--primary-color);
-            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
-        }
-
-        .nav-link.active {
-            color: var(--primary-color);
-            background: rgba(0, 255, 255, 0.15);
-            border-left: 3px solid var(--primary-color);
-            font-weight: 500;
-            box-shadow: inset 0 0 15px rgba(0, 255, 255, 0.3);
-        }
-
-        .menu-toggle {
-            display: none; /* Hidden by default on desktop */
-            cursor: pointer;
-        }
-
-        /* HOME SECTION SPECIFIC STYLES */
+        /* ==================================== */
+        /* 2. HOME SECTION & ANIMATIONS         */
+        /* ==================================== */
         #home {
-            padding-left: 5%; /* Use relative padding */
-            text-align: left; 
-            align-items: flex-start;
+            text-align: left;
         }
 
         .hero-grid {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            max-width: 1200px;
+            justify-content: space-around;
+            gap: 50px;
         }
 
         .hero-text-area {
-            max-width: 55%;
+            max-width: 550px;
         }
 
         #intro-text {
-            font-size: 1.4rem;
-            color: var(--primary-color);
-            font-weight: 300;
+            color: var(--neon-color);
+            font-size: 1.5rem;
             margin-bottom: 10px;
-            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
         }
 
         .hero-text-area h1 {
-            font-size: 4rem;
+            font-size: 4.5rem;
             line-height: 1.2;
             margin-bottom: 20px;
+            color: #fff;
         }
 
         .typed-text {
-            color: var(--primary-color);
-            font-weight: 700;
-            text-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+            color: var(--neon-color);
+            text-shadow: 0 0 20px var(--neon-color);
         }
 
         .typed-cursor {
-            display: inline-block;
-            width: 3px;
-            height: 1.1em; 
-            background-color: #0ff;
-            margin-left: 5px;
+            opacity: 1;
             animation: blink 0.7s infinite;
+            color: var(--neon-color);
+            font-weight: 100;
         }
 
         @keyframes blink {
@@ -269,38 +252,38 @@
             50% { opacity: 0; }
         }
 
-        /* Hero Visual Graphic */
+        /* Home Visual Container */
         .hero-visual-area {
-            flex: 0 0 40%; 
+            width: 450px;
+            height: 450px;
             position: relative;
-            min-height: 500px;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
         }
 
         .animated-graphic-container {
-           position: absolute;
-            width: 500px;
-            height: 500px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            position: relative;
         }
-        
-        /* Core Photo Container */
+
         .photo-container {
             width: 250px;
             height: 250px;
-            position: relative;
             border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             overflow: hidden;
-            border: 5px solid var(--primary-color);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+            border: 5px solid rgba(0, 255, 255, 0.5);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             z-index: 10;
-            opacity: 0; 
-            transform: translate(-50%, -50%) scale(0.5);
-            /* FIX 2: Added initial fly-in animation to CSS for better predictability */
+            opacity: 0;
             animation: photoFlyIn 1.5s ease-out forwards 0.8s;
         }
 
@@ -308,90 +291,62 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            position: relative;
-            z-index: 12;
-        }
-
-        /* Data Bars */
-        .photo-container > div {
             position: absolute;
-            top: 0;
-            left: 0;
+            z-index: 11;
+        }
+        
+        /* Bar chart background animation */
+        .photo-container > div {
             width: 100%;
             height: 100%;
             display: flex;
-            justify-content: space-around;
             align-items: flex-end;
+            justify-content: space-between;
+            position: absolute;
             padding: 10px;
-            z-index: 11;
-            background: rgba(0, 0, 0, 0.5);
+            opacity: 0.5;
+            z-index: 12;
+            background: rgba(0, 0, 0, 0.4);
         }
 
         .bar {
-            width: 8px;
-            background: linear-gradient(to top, var(--primary-color), rgba(0, 255, 255, 0.2));
-            transition: height 1s cubic-bezier(0.25, 0.8, 0.25, 1);
-            box-shadow: 0 0 8px var(--primary-color);
-            border-radius: 5px 5px 0 0;
-            height: 0; 
+            width: 5px;
+            background-color: var(--neon-color);
+            margin: 0 2px;
+            transition: height 1s ease-out;
+            height: 0%;
+            box-shadow: 0 0 5px var(--neon-color);
         }
-        
-        /* Skill Orbit Ring */
+
+        @keyframes photoFlyIn {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        /* Orbit Container */
         .skill-orbit-container {
-             position: relative;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
             border-radius: 50%;
-            border: 1px dashed rgba(0, 255, 255, 0.3);
-            animation: spin 20s linear infinite;
+            /* Initial state for fly-in animation */
             opacity: 0;
-            transform: scale(0);
+            transform: scale(0.5);
             animation: orbitFlyIn 1.5s ease-out forwards, spin 20s linear infinite;
         }
-         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes orbitFlyIn { from { opacity: 0; transform: scale(0.5) rotate(0deg); } to { opacity: 1; transform: scale(1) rotate(0deg); } }
-        
-        .photo-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%); 
-            z-index: 3;
-            width: 200px; 
-            height: 200px;
-            border-radius: 50%; 
-            overflow: hidden;
-            opacity: 0; 
-            animation: photoFlyIn 1.5s ease-out forwards; 
-            animation-delay: 0.8s;
+
+        @keyframes orbitFlyIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
         }
-        @keyframes photoFlyIn { 
-            from { opacity: 0; transform: translate(-50%, 50%) scale(0.8); }
-            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
-          /* Bar Chart Effect around Photo */
-        .photo-container div {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            padding: 5%;
-            z-index: 10;
-        }
-        
-        .photo-container img { width: 100%; height: 100%; object-fit: cover; }
-        .bar {
-            width: 5%; margin: 0 1.5%; background-color: #0ff; height: 0; 
-            transition: height 0.8s ease-out; border-radius: 2px 2px 0 0;
-            box-shadow: 0 0 5px #0ff;
-        }
-        
+
         /* NEW, RELIABLE ORBIT CSS */
         .skill-icon {
             position: absolute; 
@@ -436,7 +391,7 @@
         .icon-data-analytics { --rotation: 261.816deg; } 
         .icon-powerbi { --rotation: 294.543deg; } 
         .icon-problem { --rotation: 327.27deg; } 
-     
+        
 
         /* ==================================== */
         /* 3. ABOUT SECTION                     */
@@ -524,7 +479,7 @@
         /* ==================================== */
         /* 7. CONTACT SECTION                   */
         /* ==================================== */
-         #contact { min-height: 80vh; }
+        #contact { min-height: 80vh; }
         .contact-container { display: flex; gap: 60px; align-items: flex-start; justify-content: center; width: 100%; background: #0a0a0a; padding: 50px; border-radius: 12px; border: 1px solid #222; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5), 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 0 5px rgba(255, 255, 255, 0.05); }
         .contact-form { flex: 2; max-width: 650px; background: #000; border: 1px solid #1a1a1a; padding: 30px; border-radius: 10px; position: relative; border-top: 4px solid #0ff; box-shadow: inset 0 0 5px rgba(0, 255, 255, 0.1); }
         .form-group { margin-bottom: 25px; text-align: left; }
@@ -669,7 +624,7 @@
 
         /* 600px: Extra fine-tuning for smaller smartphones */
         @media(max-width:600px){
-           h2 { font-size: 2.2rem; margin-bottom: 30px; }
+            h2 { font-size: 2.2rem; margin-bottom: 30px; }
             .hero-text-area h1 { 
                 font-size: 2.2rem; 
                 min-height: 5.5rem; /* NEW FIX: Reserves space to prevent page jump during typing */
@@ -731,7 +686,7 @@
                             <span class="typed-cursor">|</span>
                         </h1>
                         <p style="margin-bottom: 30px;">
-                           “Rise after every fall; each failure is a lesson shaping your path to success and proving your strength to the world and yourself.”
+                            “Rise after every fall; each failure is a lesson shaping your path to success and proving your strength to the world and yourself.”
                         <div class="button-group">
                             <a href="#contact" class="btn">Let's Connect</a>
                             <a href="./assets/Sathishresume.pdf" target="_blank" class="btn btn-secondary">View Resume</a>
@@ -777,26 +732,19 @@
         <section id="about">
             <div class="section-content">
                 <h2>About Me</h2>
-                
                 <div class="about-container">
                     <div class="about-photo-wrapper">
                         <div class="image-stack">
-                            <img src="./assets/sathish.jpg" alt="Sathish K - Default Photo">
-                            <img src="./assets/sathish4.jpg" alt="Sathish K - Second Photo">
-                            <img src="./assets/sathish2.jpg" alt="Sathish K - Third Photo">
-                            <img src="./assets/sathish3.jpg" alt="Sathish K - Fourth Photo">
+                            <img src="https://via.placeholder.com/250/00ffff/111111?text=Sathish+1" alt="Profile Image 1">
+                            <img src="https://via.placeholder.com/250/ff00ff/111111?text=Sathish+2" alt="Profile Image 2">
+                            <img src="https://via.placeholder.com/250/ffff00/111111?text=Sathish+3" alt="Profile Image 3">
+                            <img src="https://via.placeholder.com/250/00ff00/111111?text=Sathish+4" alt="Profile Image 4">
                         </div>
                     </div>
                     <div class="about-text">
-                        <p>
-                            I am a passionate and dedicated B.Sc. Computer Science student at VIT Vellore with a strong foundation in programming, web technologies, and data-driven solutions. My interests lie in **full stack development, artificial intelligence, and machine learning**, where I enjoy transforming ideas into functional and innovative digital solutions.
-                        </p>
-                        <p style="margin-top: 15px;">
-                            With hands-on experience in developing web applications using **HTML, CSS, JavaScript, React, Node.js, and MongoDB**, I aim to create seamless, responsive, and user-friendly interfaces. Additionally, I have explored data analytics and predictive modeling through projects that involve algorithms such as **LSTM, ARIMA, and Prophet** for trend prediction.
-                        </p>
-                        <p style="margin-top: 15px;">
-                            I am a continuous learner who thrives in collaborative environments, always eager to enhance my technical expertise and explore emerging technologies. My goal is to contribute to impactful projects that combine creativity, technology, and analytical thinking to solve real-world challenges.
-                        </p>
+                        <h2>My Journey</h2>
+                        <p>I am an ambitious **Student & Developer** specializing in crafting immersive digital experiences. My core strength lies in **Full Stack Web Development**, blending powerful back-end logic with captivating, modern front-end design using the MERN stack (MongoDB, Express, React, Node.js).</p>
+                        <p style="margin-top: 15px;">I have a deep curiosity for **Data Science and AI/ML**, actively working on projects like time-series stock prediction and data analytics dashboards using tools like Python, Power BI, and specialized models. I am committed to leveraging technology to solve complex real-world problems and create functional, scalable solutions.</p>
                     </div>
                 </div>
             </div>
@@ -899,7 +847,7 @@
                     <form id="contactForm" class="contact-form" onsubmit="handleFormSubmit(event)">
                         <div class="form-group">
                             <label for="name">Your Name</label>
-                             <input type="text" id="name" name="from_name" required>
+                            <input type="text" id="name" name="from_name" required>
                         </div>
                         <div class="form-group">
                             <label for="email">Your Email</label>
@@ -907,7 +855,7 @@
                         </div>
                         <div class="form-group">
                             <label for="message">Message</label>
-                           <textarea id="message" name="message" required></textarea>
+                            <textarea id="message" name="message" required></textarea>
                         </div>
                         <button type="submit" class="btn">Send Message</button>
                     </form>
@@ -988,7 +936,7 @@
             }
         }
 
-         // --- Home Visual Animation ---
+        // --- Home Visual Animation ---
         const bars = document.querySelectorAll('.bar');
         const photoContainer = document.getElementById('photo-container');
         const skillOrbitContainer = document.getElementById('skill-orbit-container');
