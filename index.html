@@ -235,9 +235,13 @@
             color: #fff;
         }
 
+        /* 👇 FINAL FIX: Prevents text wrap from causing layout shift */
         .typed-text {
             color: var(--neon-color);
             text-shadow: 0 0 20px var(--neon-color);
+            display: inline-block;
+            white-space: nowrap; 
+            overflow: hidden; 
         }
 
         .typed-cursor {
@@ -627,7 +631,8 @@
             h2 { font-size: 2.2rem; margin-bottom: 30px; }
             .hero-text-area h1 { 
                 font-size: 2.2rem; 
-                min-height: 5.5rem; /* NEW FIX: Reserves space to prevent page jump during typing */
+                /* FINAL FIX: Reserves safe space to prevent page jump during typing */
+                min-height: 5.8rem; 
             }
             .typed-cursor { font-size: 2.2rem; }
             #intro-text { font-size: 1.2rem; }
@@ -743,7 +748,7 @@
                     </div>
                     <div class="about-text">
                         <h2>My Journey</h2>
-                        <p>I am an ambitious **Student & Developer** specializing in crafting immersive digital experiences. My core strength lies in **Full Stack Web Development**, blending powerful back-end logic with captivating, modern front-end design using the MERN stack (MongoDB, Express, React, Node.js).</p>
+                        <p>I am an ambitious **Student & Developer** specializing in crafting immersive digital experiences. My core strength lies in **Full Stack Web Development**, blending powerful back-end logic with captivating, modern front-end design using the MERN stack (MongoDB, Express, React, Node.js). </p>
                         <p style="margin-top: 15px;">I have a deep curiosity for **Data Science and AI/ML**, actively working on projects like time-series stock prediction and data analytics dashboards using tools like Python, Power BI, and specialized models. I am committed to leveraging technology to solve complex real-world problems and create functional, scalable solutions.</p>
                     </div>
                 </div>
